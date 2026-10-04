@@ -1,0 +1,32 @@
+/* ============================================================================
+   layout/grid.css —— 轻量栅格与横排工具
+   ============================================================================ */
+
+.grid { display: grid; gap: var(--space-block); }
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-auto { grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr)); }
+
+@media screen and (max-width: 768px) {
+  .grid-2,
+  .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* 旧类名 .hfill：横排两端对齐列表 */
+.hfill {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.hfill li { max-width: 25em; }
+
+@media screen and (max-width: 500px) {
+  .hfill { flex-direction: column; gap: var(--space-2); }
+  .hfill li { max-width: none; }
+}
+
+.row { display: flex; align-items: center; gap: var(--space-inline); flex-wrap: wrap; }
+.stack > * + * { margin-top: var(--gap-stack); }

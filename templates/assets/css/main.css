@@ -1,0 +1,59 @@
+/* ============================================================================
+   main.css —— 全站唯一入口（只需引入这一个文件）
+   ----------------------------------------------------------------------------
+   层叠顺序（后者覆盖前者，业务样式不得跨层使用强制声明）：
+     reset → tokens → base → layout → components → poetry → pages → utilities
+   ----------------------------------------------------------------------------
+   部署提示：
+   1) 字体子集化 CSS 与字体文件请按实际目录调整 "../fonts/" 前缀；
+      本文件等价于原 style.css 的位置，故沿用 ../fonts/ 相对路径。
+   2) 生产环境建议用 PostCSS / Vite / esbuild 把 @import 内联打包，
+      消除 @import 的串行请求，首屏可再快 100–300ms。
+   ============================================================================ */
+@charset "UTF-8";
+
+@layer reset, tokens, base, layout, components, poetry, pages, utilities;
+
+/* —— 字体子集化声明（霞鹜文楷 / 思源宋体）—— */
+@import url("../fonts/Source+Han+Serif+VF/result.css") layer(tokens);
+@import url("../fonts/LXGW+WenKai/result.css") layer(tokens);
+
+/* —— 设计令牌 —— */
+@import url("tokens/colors.css")     layer(tokens);
+@import url("tokens/typography.css") layer(tokens);
+@import url("tokens/spacing.css")    layer(tokens);
+@import url("tokens/effects.css")    layer(tokens);
+
+/* —— 基础层 —— */
+@import url("base/reset.css")  layer(reset);
+@import url("base/global.css") layer(base);
+
+/* —— 布局层 —— */
+@import url("layout/container.css") layer(layout);
+@import url("layout/header.css")    layer(layout);
+@import url("layout/footer.css")    layer(layout);
+@import url("layout/grid.css")      layer(layout);
+
+/* —— 组件层 —— */
+@import url("components/nav.css")        layer(components);
+@import url("components/card.css")       layer(components);
+@import url("components/button.css")     layer(components);
+@import url("components/tag.css")        layer(components);
+@import url("components/toc.css")        layer(components);
+@import url("components/blockquote.css") layer(components);
+@import url("components/pagination.css") layer(components);
+@import url("components/code.css")       layer(components);
+@import url("components/widgets.css")    layer(components);
+
+/* —— 诗词专属层（本主题第一性）—— */
+@import url("poetry/poem.css")       layer(poetry);
+@import url("poetry/annotation.css") layer(poetry);
+@import url("poetry/seal.css")       layer(poetry);
+
+/* —— 页面层 —— */
+@import url("pages/home.css")    layer(pages);
+@import url("pages/archive.css") layer(pages);
+@import url("pages/post.css")    layer(pages);
+
+/* —— 工具层（最后生效）—— */
+@import url("utilities.css") layer(utilities);

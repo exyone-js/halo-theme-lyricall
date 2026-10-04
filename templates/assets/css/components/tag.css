@@ -1,0 +1,48 @@
+/* ============================================================================
+   components/tag.css —— 标签 / 词牌 / 朝代
+   五色系齐备，主次分明：红（朱砂）用于当前与强调，蓝绿紫用于分类，
+   黄系仅作装饰底（不作文字，避免对比度不足）。
+   ============================================================================ */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: 1.75em;
+  padding: .15em var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-normal);
+  line-height: var(--lh-tight);
+  color: var(--cat-ink-deep);
+  background-color: var(--cat-ink-light);
+  border: 1px solid color-mix(in srgb, var(--cat-ink-base) 32%, transparent);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  white-space: nowrap;
+}
+a.tag:hover { color: var(--color-accent-text); border-color: var(--color-accent-border); }
+
+/* ——— 五色变体 ——— */
+.tag--red    { color: var(--cat-red-deep);    background: var(--cat-red-light);    border-color: color-mix(in srgb, var(--cat-red-base) 34%, transparent); }
+.tag--blue   { color: var(--cat-blue-deep);   background: var(--cat-blue-light);   border-color: color-mix(in srgb, var(--cat-blue-base) 34%, transparent); }
+.tag--green  { color: var(--cat-green-deep);  background: var(--cat-green-light);  border-color: color-mix(in srgb, var(--cat-green-base) 34%, transparent); }
+.tag--purple { color: var(--cat-purple-deep); background: var(--cat-purple-light); border-color: color-mix(in srgb, var(--cat-purple-base) 34%, transparent); }
+.tag--gold   { color: var(--cat-gold-deep);   background: var(--cat-gold-light);  border-color: color-mix(in srgb, var(--cat-gold-base) 40%, transparent); }
+
+/* 词牌 / 朝代：楷体小字，跟随诗题 */
+.tag--cipai {
+  font-family: var(--font-poem);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-poem);
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
+/* 计数角标 */
+.tag__count {
+  font-family: var(--font-latin);
+  font-size: var(--fs-2xs);
+  color: var(--color-text-muted);
+}

@@ -1,0 +1,60 @@
+/* ============================================================================
+   components/pagination.css —— 分页：素底方钮，当前页朱砂实底
+   ============================================================================ */
+
+.pagination {
+  width: min(100%, 30rem);
+  margin: var(--space-section) auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  text-align: center;
+  font-family: var(--font-serif);
+}
+
+/* 分页以 <nav class="pagination"> 承载时，去掉通用导航的下划边框与字号 */
+nav.pagination {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: var(--space-section);
+  font-size: var(--fs-sm);
+  letter-spacing: var(--ls-normal);
+}
+nav.pagination a {
+  color: var(--color-link);
+  font-family: var(--font-serif);
+}
+
+.pagination a,
+.pagination span,
+.pagination .current {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--tap-target);
+  min-height: var(--tap-target);
+  padding-inline: var(--space-2);
+  font-family: var(--font-latin);
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: var(--border-hair);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: var(--transition-ink);
+}
+.pagination a:hover {
+  color: var(--color-accent-text);
+  border-color: var(--color-accent-border);
+  background: var(--color-accent-soft);
+}
+.pagination .current,
+.pagination [aria-current="page"] {
+  color: var(--color-seal-text);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+.pagination .disabled { color: var(--color-text-muted); opacity: .6; }
+.pagination .gap { border: 0; background: none; color: var(--color-text-muted); }

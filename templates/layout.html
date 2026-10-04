@@ -12,13 +12,7 @@
     <meta name="author" th:content="${site.title}" />
     <link
       rel="stylesheet"
-      th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      media="print"
-      th:href="@{/assets/css/print.css?v={version}(version=${theme.spec.version})}"
+      th:href="@{/assets/css/main.css?v={version}(version=${theme.spec.version})}"
     />
     <th:block th:if="${theme.config.functional.enable_katex != false}">
       <link
@@ -29,19 +23,69 @@
     <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
     <link rel="apple-touch-icon" th:href="@{/assets/apple-icon.png}" />
     <link rel="manifest" th:href="@{/assets/manifest.json}" />
-    <th:block th:if="${theme.config.style.show_grid == false}">
-      <style>
-        body { background-image: none !important; }
+
+    <!-- ============================ 全局网格背景 ============================
+         严格按指定配置落地：24px 方格、赭石淡线、宣纸底。
+         仅在「显示网格背景」开启时输出；暗色模式自动切换为墨夜纸底。 -->
+    <th:block th:if="${theme.config.style.show_grid != false}">
+      <style id="global-grid-bg">
+      :root {
+        --grid-size: 24px;
+        --grid-line-color: rgba(180, 83, 9, .07);
+        --grid-bg-color: #fefaf0;
+      }
+
+      body {
+        background-color: var(--grid-bg-color) !important;
+        background-image:
+          linear-gradient(to right,  var(--grid-line-color) 1px, transparent 1px),
+          linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px) !important;
+        background-size: var(--grid-size) var(--grid-size) !important;
+        background-attachment: fixed !important;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --grid-line-color: rgba(240, 194, 57, .05);
+          --grid-bg-color: #221d17;
+        }
+      }
       </style>
+      <!-- 背景色设置联动：用户自定义时覆盖网格底色（默认值与指定配置一致） -->
+      <style
+        th:if="${not #strings.isEmpty(theme.config.style.body_color)}"
+        th:inline="text"
+      >:root { --grid-bg-color: [(${theme.config.style.body_color})]; }</style>
+      <style
+        th:if="${not #strings.isEmpty(theme.config.style.body_color_dark)}"
+        th:inline="text"
+      >@media (prefers-color-scheme: dark) { :root { --grid-bg-color: [(${theme.config.style.body_color_dark})]; } }</style>
     </th:block>
-    <th:block th:if="${not #strings.isEmpty(theme.config.style.accent_color)}">
-      <style th:utext="':root{--accent:' + ${theme.config.style.accent_color} + ';}'"></style>
-    </th:block>
+
+    <!-- 强调色联动：覆盖语义令牌，使设置项生效 -->
+    <style
+      th:if="${not #strings.isEmpty(theme.config.style.accent_color)}"
+      th:inline="text"
+    >:root {
+      --color-accent: [(${theme.config.style.accent_color})];
+      --color-seal-bg: [(${theme.config.style.accent_color})];
+      --color-accent-text: [(${theme.config.style.accent_color})];
+    }</style>
+    <style
+      th:if="${not #strings.isEmpty(theme.config.style.text_color)}"
+      th:inline="text"
+    >:root { --color-text: [(${theme.config.style.text_color})]; --color-heading: [(${theme.config.style.text_color})]; }</style>
+    <style
+      th:if="${not #strings.isEmpty(theme.config.style.text_color_dark)}"
+      th:inline="text"
+    >@media (prefers-color-scheme: dark) { :root { --color-text: [(${theme.config.style.text_color_dark})]; --color-heading: [(${theme.config.style.text_color_dark})]; } }</style>
+
     <th:block th:if="${head != null}">
       <th:block th:replace="${head}" />
     </th:block>
   </head>
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <main>
       <th:block th:replace="~{modules/logo :: logo}" />
       <th:block th:replace="~{modules/nav :: nav}" />
@@ -50,6 +94,16 @@
       </div>
       <th:block th:replace="~{modules/footer :: footer}" />
     </main>
+    <button
+      class="back-to-top seal seal--sm hide-in-print"
+      type="button"
+      aria-label="回到顶部"
+      hidden
+    >顶部</button>
+    <script
+      defer
+      th:src="@{/assets/js/main.js?v={version}(version=${theme.spec.version})}"
+    ></script>
     <halo:footer />
   </body>
 </html>

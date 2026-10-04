@@ -1,24 +1,23 @@
 <!doctype html>
 <html xmlns:th="https://www.thymeleaf.org">
   <th:block th:fragment="nav">
-    <nav>
-      <div class="hide-in-print" th:with="menu = ${menuFinder.getPrimary()}">
-        <th:block th:if="${menu != null and not #lists.isEmpty(menu.menuItems)}">
-          <th:block th:each="item, stat : ${menu.menuItems}">
-            <a
-              th:href="@{${item.status.href}}"
-              th:target="${item.spec.target?.value}"
-            >
-              <strong th:if="${#strings.equals(item.status.displayName, activeTab)}" th:text="${item.status.displayName}"></strong>
-              <th:block th:unless="${#strings.equals(item.status.displayName, activeTab)}" th:text="${item.status.displayName}"></th:block>
-            </a>
-            <th:block th:if="${!stat.last}"> · </th:block>
-          </th:block>
-        </th:block>
-        <th:block th:if="${menu == null or #lists.isEmpty(menu.menuItems)}">
-          <a th:href="@{/}">Home</a>
-        </th:block>
-      </div>
+    <nav class="site-nav hide-in-print" th:with="menu = ${menuFinder.getPrimary()}">
+      <ul th:if="${menu != null and not #lists.isEmpty(menu.menuItems)}">
+        <li th:each="item : ${menu.menuItems}">
+          <a
+            th:href="@{${item.status.href}}"
+            th:target="${item.spec.target?.value}"
+            th:aria-current="${#strings.equals(item.status.displayName, activeTab)} ? 'page' : null"
+            th:text="${item.status.displayName}"
+          ></a>
+        </li>
+      </ul>
+      <ul th:if="${menu == null or #lists.isEmpty(menu.menuItems)}">
+        <li><a th:href="@{/}" th:aria-current="${activeTab == '首页'} ? 'page' : null">首页</a></li>
+        <li><a th:href="@{/categories}" th:aria-current="${activeTab == '分类'} ? 'page' : null">分类</a></li>
+        <li><a th:href="@{/tags}" th:aria-current="${activeTab == '标签'} ? 'page' : null">标签</a></li>
+        <li><a th:href="@{/archives}" th:aria-current="${activeTab == '归档'} ? 'page' : null">归档</a></li>
+      </ul>
     </nav>
   </th:block>
 </html>

@@ -1,0 +1,57 @@
+/* ============================================================================
+   components/blockquote.css —— 引文 / 笺注框：浅底 + 朱砂左竖线
+   与 poetry/annotation.css 的分工：这里是"引文"，那里是"注释/赏析/注音"。
+   ============================================================================ */
+
+blockquote {
+  background: var(--color-surface-sunken);
+  border-left: 3px solid var(--color-accent-border);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: var(--space-3) var(--space-5);
+  margin-block: var(--space-block);
+  box-shadow: var(--shadow-inset);
+  color: var(--color-text);
+}
+blockquote p { line-height: var(--lh-quote); }
+blockquote p + p { margin-top: var(--gap-stack); }
+
+blockquote cite {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--fs-sm);
+  font-style: normal;
+  color: var(--color-subtitle);
+  text-align: right;
+}
+blockquote cite::before { content: "—— "; }
+
+figure { margin-block: var(--space-block); }
+figcaption {
+  font-size: var(--fs-xs);
+  color: var(--color-subtitle);
+  text-align: center;
+  margin-top: var(--space-2);
+}
+
+blockquote a,
+figure a { text-decoration: none; color: var(--color-accent-text); }
+blockquote img,
+figure img {
+  max-width: min(50%, 100%);
+  margin-inline: auto;
+}
+
+/* 竹青变体：引他人文 */
+blockquote.is-quote-green {
+  border-left-color: var(--cat-green-base);
+  background: var(--cat-green-light);
+}
+/* 靛青变体：引典籍 */
+blockquote.is-quote-blue {
+  border-left-color: var(--cat-blue-base);
+  background: var(--cat-blue-light);
+}
+
+@media screen and (max-width: 500px) {
+  blockquote { margin-inline: var(--space-2); }
+}

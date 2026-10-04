@@ -1,0 +1,98 @@
+/* ============================================================================
+   pages/post.css —— 诗词详情页：诗题区 / 诗句区 / 笺注区 / 落款区
+   ============================================================================ */
+
+.post--poem {
+  max-width: min(100%, 50rem);
+  padding-top: var(--space-5);
+}
+
+/* 详情页诗句更大一号 */
+.post--poem .poem .poem-line,
+.post--poem .poem .verse { font-size: var(--fs-poem-lg); letter-spacing: var(--ls-poem); }
+
+.post__header { text-align: center; margin-bottom: var(--space-5); }
+.post__header h1 {
+  font-family: var(--font-serif);
+  font-size: var(--fs-2xl);
+  color: var(--color-heading);
+  margin-bottom: var(--space-2);
+}
+.post__meta {
+  font-size: var(--fs-xs);
+  color: var(--color-subtitle);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+}
+/* 书签小印悬于题下元信息行，与作者、日期同列 */
+.post__meta .bookmark-btn { margin-inline-start: var(--space-2); }
+
+/* 正文区：散文体缩进，标题不缩进 */
+.post__body { max-width: var(--measure); margin-inline: auto; }
+.post__body > p { text-indent: var(--indent-prose); }
+.post__body > p + p { margin-top: var(--gap-stack); }
+.post__body > h2 { margin-top: var(--space-6); font-size: var(--fs-xl); }
+.post__body > h3 { margin-top: var(--space-5); font-size: var(--fs-lg); }
+.post__body img { margin-inline: auto; }
+
+/* 页脚落款 */
+.post__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-top: var(--space-section);
+  padding-top: var(--space-4);
+  border-top: var(--border-hair);
+  font-size: var(--fs-sm);
+  color: var(--color-subtitle);
+  flex-wrap: wrap;
+}
+
+/* 上一首 / 下一首：翻卷寻章，两栏对望 */
+.post__nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px dashed var(--color-border);
+}
+.post__nav-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-height: var(--tap-target);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: var(--transition-ink);
+}
+.post__nav-item:hover {
+  background: var(--color-accent-soft);
+  text-decoration: none;
+}
+.post__nav-prev { text-align: left; }
+.post__nav-next { text-align: right; }
+.post__nav-dir {
+  font-family: var(--font-poem);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-nav);
+  color: var(--color-text-muted);
+}
+.post__nav-item:hover .post__nav-dir { color: var(--color-accent-text); }
+.post__nav-title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-md);
+  color: var(--color-heading);
+  overflow-wrap: break-word;
+}
+.post__nav-item:hover .post__nav-title { color: var(--color-accent-text); }
+
+@media screen and (max-width: 500px) {
+  .post__nav { grid-template-columns: 1fr; }
+  .post__nav-next { text-align: left; }
+}

@@ -1,0 +1,59 @@
+/* ============================================================================
+   layout/container.css —— 容器、版心与内容区
+   正文 measure 44em（中文单行 30–40 字最舒适），移动端自动放宽到视口。
+   ============================================================================ */
+
+main {
+  width: min(100% - var(--space-fluid-md) * 2, 68em);
+  margin-inline: auto;
+  padding-block: var(--space-2) var(--space-section);
+}
+
+.container {
+  width: min(100% - var(--space-fluid-md) * 2, 68em);
+  margin-inline: auto;
+}
+
+/* 正文容器：散文 / 详情页 */
+.prose {
+  max-width: var(--measure);
+  margin-inline: auto;
+}
+
+.prose-wide { max-width: var(--measure-wide); margin-inline: auto; }
+
+/* 旧类名兼容：.content 居中区块 */
+.content {
+  text-align: center;
+  margin: auto;
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-5);
+}
+
+/* 旧类名兼容：.content-left 左对齐正文块 */
+.content-left {
+  text-align: left;
+  margin-inline: auto;
+  max-width: var(--measure);
+  padding-block: var(--space-5);
+}
+.content-left a { color: var(--color-link); }
+.content-left a:link,
+.content-left a:visited { text-decoration: underline; color: var(--color-link-visited); }
+.content-left a:hover { text-decoration: none; color: var(--color-link-hover); }
+
+.error-message { text-align: center; color: var(--color-accent-text); }
+.error-message__back { margin-top: var(--space-3); font-size: var(--fs-sm); }
+.error-message__back a { color: var(--color-link); }
+
+@media screen and (max-width: 850px) {
+  main,
+  .container { width: min(100% - var(--space-4) * 2, 100%); }
+}
+
+@media screen and (max-width: 500px) {
+  main,
+  .container { width: 100%; padding-inline: var(--space-4); }
+}

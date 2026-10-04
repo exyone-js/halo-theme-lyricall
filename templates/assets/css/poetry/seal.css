@@ -1,0 +1,85 @@
+/* ============================================================================
+   poetry/seal.css —— 印章：朱砂底 + 反白字，rotate(-2deg)，hover 有按压感
+   朱文（白底朱字）/ 白文（朱底白字）两种制式。
+   ============================================================================ */
+
+.seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8em;
+  height: 2.8em;
+  padding: .2em;
+  font-family: var(--font-poem);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  line-height: 1.1;
+  letter-spacing: var(--ls-seal);
+  color: var(--color-seal-text);
+  background-color: var(--color-seal-bg);
+  border: var(--border-seal);
+  border-radius: var(--radius-seal);
+  box-shadow: var(--shadow-seal);
+  transform: rotate(-2deg);
+  user-select: none;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  transition: transform var(--duration-base) var(--ease-ink),
+              box-shadow var(--duration-base) var(--ease-ink);
+}
+/* 按压感：hover 时轻微缩小并压实阴影 */
+.seal:hover {
+  transform: rotate(-2deg) scale(.94);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .4), inset 0 2px 4px rgba(0, 0, 0, .18);
+}
+
+/* 圆印（名章）*/
+.seal--round { border-radius: 50%; }
+
+/* 朱文：白底朱字，只留细边 */
+.seal--outline {
+  color: var(--color-accent-text);
+  background-color: transparent;
+  border: 1.5px solid var(--color-accent);
+  box-shadow: none;
+}
+.seal--outline:hover { background-color: var(--color-accent-soft); }
+
+/* 尺寸档 */
+.seal--sm { width: 2.2em; height: 2.2em; font-size: var(--fs-xs); }
+.seal--lg { width: 3.6em; height: 3.6em; font-size: var(--fs-md); }
+
+/* 引首章（压在诗题左上）*/
+.seal--lead {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-3);
+  writing-mode: horizontal-tb;
+  transform: rotate(2deg);
+}
+
+/* 落款处押角章 */
+.poem__sign .seal,
+.poem-sign .seal { margin-left: var(--space-2); }
+
+/* ——— 诗笺书签钮：题头右侧，朱文/白文两态 ———
+   与 .seal--outline 同层，靠更高特异性（0-2-0 > 0-1-0）完成互转 */
+.bookmark-btn {
+  cursor: pointer;
+}
+.bookmark-btn.is-bookmarked {
+  color: var(--color-seal-text);
+  background-color: var(--color-seal-bg);
+  border-color: var(--color-seal-bg);
+  box-shadow: var(--shadow-seal);
+}
+.bookmark-btn.is-bookmarked:hover { background-color: var(--color-accent-deep); }
+
+@media print {
+  .bookmark-btn { display: none; }
+}
+
+/* 印章入场：墨迹晕开 */
+@media (prefers-reduced-motion: no-preference) {
+  .seal { animation: ink-spread var(--duration-slow) var(--ease-ink) both; }
+}

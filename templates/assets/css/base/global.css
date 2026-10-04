@@ -1,0 +1,143 @@
+/* ============================================================================
+   base/global.css —— 根元素、纸纹底、链接、标题、选区、滚动条、焦点可见
+   ----------------------------------------------------------------------------
+   纸纹：html::before 固定层，仅承载宣纸噪点（界行网格已由
+   <style id="global-grid-bg"> 统一绘制于 body，避免双重网格）。
+   整体透明度极低（默认 .035），只做"手感"，不做"图案"。
+   ============================================================================ */
+
+html {
+  background-color: var(--color-bg);
+  color-scheme: light dark;
+}
+
+/* 纸纹：负 z-index 固定在内容之下，不参与命中测试 */
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--texture-paper-opacity);
+  background-image: var(--texture-paper);
+  background-size: 140px 140px;
+  background-repeat: repeat;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-serif);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-normal);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-normal);
+  color: var(--color-text);
+  scrollbar-color: var(--color-border-strong) var(--color-bg);
+  scrollbar-width: thin;
+}
+
+/* ——— 标题：不靠加粗靠字号与色阶 ——— */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--ls-title);
+  color: var(--color-heading);
+}
+h1 { font-size: var(--fs-2xl); }
+h2 { font-size: var(--fs-xl); }
+h3 { font-size: var(--fs-lg); }
+h4 { font-size: var(--fs-md); }
+h5, h6 { font-size: var(--fs-base); color: var(--color-text-muted); }
+
+p { line-height: var(--lh-body); }
+
+/* ——— 链接 ——— */
+a { color: var(--color-link); text-decoration-thickness: 1px; text-underline-offset: .22em; }
+a:visited { color: var(--color-link-visited); }
+a:hover { color: var(--color-link-hover); }
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+  border-radius: var(--radius-xs);
+}
+
+strong, b { font-weight: var(--fw-bold); }
+em { font-style: normal; text-emphasis: filled dot; -webkit-text-emphasis: filled dot; }
+del { color: var(--color-text-muted); }
+
+/* ——— 选区：缃色淡染 ——— */
+::selection {
+  background-color: var(--color-selection-bg);
+  color: var(--color-selection-text);
+}
+
+/* ——— 分隔线：默认即云纹（可用 <hr class="divider-huiwen"> 切换回纹）——— */
+hr {
+  height: 16px;
+  margin: var(--space-8) auto;
+  border: 0;
+  background-color: var(--color-border-strong);
+  -webkit-mask-image: var(--omen-yunwen);
+          mask-image: var(--omen-yunwen);
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-size: 72px 16px;
+          mask-size: 72px 16px;
+}
+
+/* ——— 表格 ——— */
+table {
+  width: min(100%, var(--measure-wide));
+  margin: var(--space-6) auto;
+  border-collapse: collapse;
+}
+th, td {
+  padding: var(--space-2) var(--space-4);
+  line-height: var(--lh-snug);
+  text-align: left;
+}
+th {
+  font-size: var(--fs-md);
+  font-weight: var(--fw-medium);
+  background: var(--color-surface-sunken);
+  color: var(--color-heading);
+}
+tr { border: var(--border-hair); }
+tbody tr:nth-child(odd) td { background: var(--color-accent-soft); }
+
+/* ——— 行内代码与媒体 ——— */
+code {
+  font-family: var(--font-mono);
+  font-size: .92em;
+  padding: .1em .4em;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-code-bg);
+  color: var(--color-code-text);
+  overflow-x: auto;
+}
+
+audio { display: flex; width: 100%; margin: var(--space-4) auto; }
+
+/* ——— 摘要（可折叠）——— */
+summary {
+  cursor: pointer;
+  min-height: var(--tap-target);
+  display: flex;
+  align-items: center;
+}
+
+/* ——— 滚动条 ——— */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--color-bg);
+}

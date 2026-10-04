@@ -3,40 +3,78 @@
   xmlns:th="https://www.thymeleaf.org"
   th:replace="~{layout :: html(head = null, content = ~{::content})}"
 >
-  <th:block th:with="pageTitle = 'Recently published', activeTab = 'Home'">
+  <th:block th:with="pageTitle = '新近发表', activeTab = '首页'">
     <th:block th:fragment="content">
-      <div>
-        <div class="post-short" th:each="post : ${posts.items}">
-          <a th:href="@{${post.status.permalink}}">
-            <h2 th:text="${post.spec.title}"></h2>
-          </a>
-          <a th:if="${post.owner != null}" th:href="@{${post.owner.permalink}}">
-            <h3 th:text="${post.owner.displayName}"></h3>
-          </a>
-          <i th:if="${post.spec.publishTime != null}">
-            posted on
-            <span th:text="${#temporals.format(post.spec.publishTime, 'd MMM yyyy', T(java.util.Locale).ENGLISH)}"></span>
-          </i>
-          <th:block th:if="${not #strings.isEmpty(post.status.excerpt)}">
-            <blockquote th:utext="${post.status.excerpt}"></blockquote>
-            <a class="excerpt-link" th:href="@{${post.status.permalink}}"><i>Read more...</i></a>
-          </th:block>
-        </div>
-      </div>
 
-      <div class="pagination" th:if="${posts.hasPrevious() || posts.hasNext()}">
+      <!-- ========================== 诗集流 ========================== -->
+      <section class="home-feed">
+        <article class="post-short" th:each="post : ${posts.items}">
+          <!-- 诗题 -->
+          <h2 class="post-title">
+            <a th:href="@{${post.status.permalink}}" th:text="${post.spec.title}"></a>
+          </h2>
+
+          <!-- 作者 · 日期 -->
+          <div class="post-meta">
+            <a
+              th:if="${post.owner != null}"
+              class="post-author"
+              th:href="@{${post.owner.permalink}}"
+              th:text="${post.owner.displayName}"
+            ></a>
+            <time
+              th:if="${post.spec.publishTime != null}"
+              th:text="${#temporals.format(post.spec.publishTime, 'yyyy年M月d日')}"
+            ></time>
+          </div>
+
+          <!-- 诗句摘录 -->
+          <th:block th:if="${not #strings.isEmpty(post.status.excerpt)}">
+            <blockquote class="post-excerpt" th:utext="${post.status.excerpt}"></blockquote>
+            <a class="excerpt-link" th:href="@{${post.status.permalink}}">
+              <i>阅读全文 &rarr;</i>
+            </a>
+          </th:block>
+
+          <!-- 分类 / 标签 -->
+          <div
+            class="post-taxonomy"
+            th:if="${not #lists.isEmpty(post.categories)} or ${not #lists.isEmpty(post.tags)}"
+          >
+            <a
+              class="tag tag--blue"
+              th:each="category : ${post.categories}"
+              th:href="@{${category.status.permalink}}"
+              th:text="${category.spec.displayName}"
+            ></a>
+            <a
+              class="tag"
+              th:each="tag : ${post.tags}"
+              th:href="@{${tag.status.permalink}}"
+              th:text="${tag.spec.displayName}"
+            ></a>
+          </div>
+        </article>
+
+        <!-- 空态 -->
+        <div class="post post-short home-empty" th:if="${#lists.isEmpty(posts.items)}">
+          <p>暂无文章，期待第一首诗。</p>
+        </div>
+      </section>
+
+      <!-- ============================ 分页 ============================ -->
+      <nav class="pagination" th:if="${posts.hasPrevious() || posts.hasNext()}">
         <span class="page_number">
-          Page: <i th:text="${posts.page}"></i> of
-          <i th:text="${posts.totalPages}"></i>
+          第 <i th:text="${posts.page}"></i> 页 / 共
+          <i th:text="${posts.totalPages}"></i> 页
         </span>
-        <br />
         <a th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}" class="previous">
-          <b>Previous</b>
+          <b>&larr; 上一页</b>
         </a>
         <a th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}" class="next">
-          <b>Next</b>
+          <b>下一页 &rarr;</b>
         </a>
-      </div>
+      </nav>
     </th:block>
   </th:block>
 </html>

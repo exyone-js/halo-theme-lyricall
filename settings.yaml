@@ -20,35 +20,35 @@ spec:
               value: dark
         - $formkit: color
           name: body_color
-          label: 宣纸底色（浅色）
+          label: 页面背景色（浅色模式）
           value: "#fefaf0"
         - $formkit: color
           name: body_color_dark
-          label: 夜墨底色（深色）
+          label: 页面背景色（深色模式）
           value: "#221d17"
         - $formkit: color
           name: text_color
-          label: 墨色文字（浅色）
+          label: 正文文字颜色（浅色模式）
           value: "#2b2620"
         - $formkit: color
           name: text_color_dark
-          label: 暖白文字（深色）
+          label: 正文文字颜色（深色模式）
           value: "#e8ddc7"
         - $formkit: color
           name: post_frame_color
-          label: 卡片背景（浅色）
+          label: 卡片背景色（浅色模式）
           value: "#f4ecd8"
         - $formkit: color
           name: post_frame_color_dark
-          label: 卡片背景（深色）
+          label: 卡片背景色（深色模式）
           value: "#2f2820"
         - $formkit: color
           name: accent_color
-          label: 朱砂强调色（浅色）
+          label: 强调色（链接、标题）
           value: "#9c2b1b"
         - $formkit: checkbox
           name: show_grid
-          label: 显示网格宣纸底纹
+          label: 显示网格背景
           value: true
     - group: layout
       label: 布局

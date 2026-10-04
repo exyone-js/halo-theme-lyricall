@@ -1,0 +1,67 @@
+/* ============================================================================
+   components/code.css —— 代码块 + Pygments 语法着色
+   沿用原 Monokai 观感，但改为变量驱动；注释色已从 #75715e 提到 #A8A291，
+   使其在褐墨底上达到 5.3:1（原方案仅 3.6:1，不达标）。
+   ============================================================================ */
+
+:root {
+  --syn-plain:    #F8F8F2;
+  --syn-comment:  #A8A291;  /* 5.3:1 on 褐墨 */
+  --syn-keyword:  #66D9EF;
+  --syn-string:   #E6DB74;
+  --syn-number:   #AE81FF;
+  --syn-name:     #A6E22E;
+  --syn-operator: #F92672;
+  --syn-error:    #FF9DA4;
+  --syn-deleted:  #F92672;
+  --syn-inserted: #A6E22E;
+}
+
+.highlight {
+  margin-block: var(--space-block);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-code-border);
+  overflow: hidden;
+}
+.highlight pre {
+  background: var(--color-code-bg);
+  color: var(--color-code-text);
+  line-height: 150%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  tab-size: 4;
+}
+.highlight pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* ——— Pygments token 映射 ——— */
+.highlight .c, .highlight .c1, .highlight .cm,
+.highlight .cp, .highlight .cs { color: var(--syn-comment); font-style: italic; }
+.highlight .err { color: var(--syn-error); }
+.highlight .k, .highlight .kc, .highlight .kd,
+.highlight .kp, .highlight .kr, .highlight .kt,
+.highlight .no { color: var(--syn-keyword); }
+.highlight .kn, .highlight .o, .highlight .ow { color: var(--syn-operator); }
+.highlight .l, .highlight .m, .highlight .mf, .highlight .mh,
+.highlight .mi, .highlight .mo, .highlight .il, .highlight .se { color: var(--syn-number); }
+.highlight .ld, .highlight .s, .highlight .sb, .highlight .sc,
+.highlight .sd, .highlight .s2, .highlight .sh, .highlight .si,
+.highlight .sx, .highlight .s1, .highlight .sr, .highlight .ss { color: var(--syn-string); }
+.highlight .na, .highlight .nc, .highlight .nd, .highlight .ne,
+.highlight .nf, .highlight .nx, .highlight .gi { color: var(--syn-name); }
+.highlight .n, .highlight .p, .highlight .nb, .highlight .ni,
+.highlight .nl, .highlight .nn, .highlight .nv, .highlight .py,
+.highlight .bp, .highlight .vc, .highlight .vg, .highlight .vi,
+.highlight .w { color: var(--syn-plain); }
+.highlight .nt { color: var(--syn-operator); }
+.highlight .ge { font-style: italic; }
+.highlight .gs { font-weight: var(--fw-bold); }
+.highlight .gu { color: var(--syn-comment); }
+.highlight .gd { color: var(--syn-deleted); }

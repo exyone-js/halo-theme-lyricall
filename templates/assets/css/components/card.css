@@ -1,0 +1,133 @@
+/* ============================================================================
+   components/card.css —— 册页 / 笺纸卡片：宣纸底、细边框、朱砂书脊线
+   兼容旧类名 .post-short（列表项）、.post（正文块）、.discussion（讨论区）
+   ============================================================================ */
+
+.card,
+.post-short,
+.post {
+  position: relative;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: var(--border-hair);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2);
+  padding: var(--pad-card);
+  margin-inline: auto;
+  margin-bottom: var(--space-block);
+  max-width: 50rem;          /* ≈ 800px，沿用原版宽上限 */
+  line-height: var(--lh-body);
+}
+
+/* 朱砂书脊线：极细，只在左缘，hover 时略微加深 */
+.card::before,
+.post-short::before,
+.post::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: var(--space-4);
+  bottom: var(--space-4);
+  width: 2px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-border);
+  transition: background-color var(--duration-base) var(--ease-ink);
+}
+.card:hover::before,
+.post-short:hover::before,
+.post:hover::before { background: var(--color-accent); }
+
+.card:hover,
+.post-short:hover { box-shadow: var(--shadow-3); }
+.card,
+.post-short,
+.post { transition: box-shadow var(--duration-base) var(--ease-ink); }
+
+/* 卡片内标题：思源宋体，不加粗 */
+.card h1, .card h2, .card h3,
+.post-short h1, .post-short h2, .post-short h3,
+.post h1, .post h2, .post h3 {
+  font-family: var(--font-serif);
+  font-weight: var(--fw-medium);
+  color: var(--color-heading);
+  letter-spacing: var(--ls-title);
+}
+.post-short h1,
+.post h1 { font-size: var(--fs-xl); margin-bottom: var(--space-1); }
+.post-short h2,
+.post h2 { margin: var(--space-2) var(--space-1); font-size: var(--fs-xl); }
+.post-short h3,
+.post h3 { margin: var(--space-2) var(--space-1); font-size: var(--fs-md); }
+
+.post-author,
+.post-short .post-author,
+.post .post-author {
+  font-family: var(--font-serif);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-normal);
+  letter-spacing: var(--ls-title);
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+a.post-author:hover { color: var(--color-accent-text); text-decoration: none; }
+
+/* 次级信息（日期 / 出处）：淡墨 */
+.card i, .post-short i, .post i,
+.card time, .post-short time, .post time,
+.card .meta, .post-short .meta, .post .meta {
+  font-style: normal;
+  font-size: var(--fs-sm);
+  color: var(--color-subtitle);
+  letter-spacing: var(--ls-normal);
+}
+
+.post-short { line-height: var(--lh-snug); }
+.post-short a:link,
+.post-short a:visited {
+  text-decoration: none;
+  color: var(--color-text);
+}
+.post-short a:hover { color: var(--color-accent-text); text-decoration: none; }
+
+/* 摘录链接：hover 不下划线（旧 .excerpt-link 语义） */
+a.excerpt-link:hover,
+.excerpt-link:hover { text-decoration: none; }
+
+/* 卡片内图片居中 */
+.card img,
+.post-short img,
+.post img { margin-inline: auto; }
+
+/* 旧 .discussion 兼容：朱砂议题块 */
+.discussion {
+  color: var(--color-discussion);
+  background-color: var(--color-surface);
+  border: var(--border-hair);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-5);
+  margin-inline: auto;
+  margin-bottom: var(--space-3);
+  max-width: 50rem;
+}
+.discussion h2 {
+  font-family: var(--font-poem);
+  font-size: var(--fs-xl);
+  text-align: center;
+  padding: var(--space-1) 0;
+}
+
+/* 卡片入场：淡入上移 */
+@media (prefers-reduced-motion: no-preference) {
+  .card,
+  .post-short {
+    animation: rise-in var(--duration-slow) var(--ease-ink) both;
+  }
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes ink-spread {
+  from { opacity: 0; filter: blur(6px); }
+  to   { opacity: 1; filter: blur(0); }
+}

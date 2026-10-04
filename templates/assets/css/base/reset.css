@@ -1,0 +1,59 @@
+/* ============================================================================
+   base/reset.css —— 现代最小化重置（中文排版友好）
+   只做"归零"，不引入任何视觉风格。
+   ============================================================================ */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  hanging-punctuation: allow-end;   /* 标点悬挂，中文段落右缘更齐 */
+}
+
+body {
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select { font: inherit; color: inherit; }
+
+button { background: none; border: 0; cursor: pointer; }
+
+p,
+h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
+
+ul[class],
+ol[class] { list-style: none; padding: 0; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+blockquote { margin: 0; }
+
+hr { border: 0; }
+
+:where(figure, blockquote, dl, dd) { margin: 0; }
+
+ruby > rt { font-size: .6em; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}

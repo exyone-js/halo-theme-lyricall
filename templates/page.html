@@ -7,7 +7,7 @@
     <th:block th:fragment="content">
       <h2 style="text-align: center;" th:text="${singlePage.spec.title}"></h2>
       <div class="post">
-        <article th:utext="${singlePage.content.content}"></article>
+        <article class="prose" th:utext="${singlePage.content.content}"></article>
       </div>
       <th:block th:if="${haloCommentEnabled}">
         <div class="post">

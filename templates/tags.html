@@ -3,20 +3,15 @@
   xmlns:th="https://www.thymeleaf.org"
   th:replace="~{layout :: html(head = null, content = ~{::content})}"
 >
-  <th:block th:with="pageTitle = 'Tags'">
+  <th:block th:with="pageTitle = '标签', activeTab = '标签'">
     <th:block th:fragment="content">
-      <h2 style="text-align:center;">Tags</h2>
-      <div class="post">
-        <div class="poem-list">
-          <ul class="hfill" th:each="tag : ${tags}">
-            <li>
-              <a th:href="@{${tag.status.permalink}}">
-                <b th:text="${tag.spec.displayName}"></b>
-              </a>
-            </li>
-            <li><span th:text="${tag.postCount}"></span></li>
-          </ul>
-        </div>
+      <h2 style="text-align:center;">标签</h2>
+      <div class="post" style="text-align:center;">
+        <a class="tag" th:each="tag : ${tags}"
+          th:href="@{${tag.status.permalink}}">
+          <span th:text="${tag.spec.displayName}"></span>
+          <span class="tag__count" th:text="${tag.postCount}"></span>
+        </a>
       </div>
     </th:block>
   </th:block>

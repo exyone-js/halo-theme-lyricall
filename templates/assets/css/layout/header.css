@@ -1,0 +1,59 @@
+/* ============================================================================
+   layout/header.css —— 站头：墨韵字标 + 朱砂名章押款
+   标题取大号思源宋体、墨阶渐变；右侧押一枚姓氏小印，仿名章落款。
+   ============================================================================ */
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5em;
+  margin: var(--space-8) auto var(--space-3);
+  font-family: var(--font-serif);
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-snug);
+  letter-spacing: .14em;
+  color: var(--color-heading);
+}
+
+.logo a {
+  text-decoration: none;
+  padding-right: .12em; /* 平衡末字字距，使视觉居中 */
+  color: var(--color-heading);
+  background-image: linear-gradient(180deg,
+    var(--color-heading),
+    color-mix(in srgb, var(--color-heading) 58%, var(--color-bg)));
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-image var(--duration-base) var(--ease-ink);
+}
+.logo a:hover {
+  background-image: linear-gradient(180deg,
+    var(--color-accent-deep),
+    var(--color-accent));
+}
+
+/* 名章：随字标缩放，微浮于基线之上 */
+.logo__seal {
+  flex: none;
+  font-size: .3em;
+  translate: 0 -.45em;
+}
+
+/* 备用小字标 / 引言（预留类名） */
+.site-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--ls-caps);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+.site-tagline {
+  font-family: var(--font-poem);
+  font-size: var(--fs-sm);
+  letter-spacing: var(--ls-poem);
+  color: var(--color-text-muted);
+  margin-top: var(--space-3);
+}

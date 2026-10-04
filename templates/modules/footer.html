@@ -4,14 +4,13 @@
     <footer>
       <div class="hide-in-print">
         <p>
-          <a th:href="@{/feed.xml}">Atom&nbsp;feed</a>
+          <a th:href="@{/feed.xml}">Atom 订阅</a>
         </p>
       </div>
       <p th:if="${not #strings.isEmpty(theme.config.content.footer_extra)}" th:text="${theme.config.content.footer_extra}"></p>
       <p>
-        <a href="https://github.com/yagarea/lyricall/">Lyricall</a>
-        created with <b style="color: #FF0000;">&lt;3</b> by
-        <a href="https://blackblog.cz/">Jan&nbsp;Černý</a>
+        主题 <a href="https://github.com/yagarea/lyricall/">Lyricall</a>
+        原作为 <a href="https://blackblog.cz/">Jan&nbsp;Černý</a>，移植并国风化于 <a href="https://github.com/exyone-js/halo-theme-lyricall">Halo</a>
       </p>
     </footer>
   </th:block>

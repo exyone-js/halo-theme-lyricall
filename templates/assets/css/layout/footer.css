@@ -1,0 +1,29 @@
+/* ============================================================================
+   layout/footer.css —— 页脚：细线分隔 + 小字 + 版权印章位
+   ============================================================================ */
+
+footer,
+.site-footer {
+  text-align: center;
+  margin-inline: auto;
+  width: min(100% - var(--space-fluid-md) * 2, 68em);
+  font-size: var(--fs-2xs);
+  line-height: var(--lh-snug);
+  color: var(--color-text-muted);
+  margin-top: var(--space-section);
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-top: var(--border-hair);
+  letter-spacing: var(--ls-normal);
+}
+
+footer a,
+.site-footer a { color: var(--color-text-muted); }
+footer a:hover,
+.site-footer a:hover { color: var(--color-accent-text); }
+
+.license-tag {
+  text-align: right;
+  font-size: var(--fs-2xs);
+  color: var(--color-text-muted);
+}

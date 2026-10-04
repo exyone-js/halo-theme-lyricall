@@ -14,31 +14,91 @@
     </th:block>
 
     <th:block th:fragment="content">
-      <div class="post">
-        <h1 th:text="${post.spec.title}"></h1>
-        <a th:if="${post.owner != null}" th:href="@{${post.owner.permalink}}">
-          <h3 th:text="${post.owner.displayName}"></h3>
-        </a>
-        <i th:if="${post.spec.publishTime != null}">
-          posted on
-          <span th:text="${#temporals.format(post.spec.publishTime, 'd MMM yyyy', T(java.util.Locale).ENGLISH)}"></span>
-        </i>
+      <article class="post post--poem">
+        <!-- 诗题区 -->
+        <header class="post__header">
+          <h1 th:text="${post.spec.title}"></h1>
+          <div class="poem__meta post__meta">
+            <a
+              th:if="${post.owner != null}"
+              class="poem__author"
+              th:href="@{${post.owner.permalink}}"
+              th:text="${post.owner.displayName}"
+            ></a>
+            <th:block th:if="${post.owner != null and post.spec.publishTime != null}">
+              <span class="sep">·</span>
+            </th:block>
+            <time
+              th:if="${post.spec.publishTime != null}"
+              th:text="${#temporals.format(post.spec.publishTime, 'yyyy年M月d日')}"
+            ></time>
+            <!-- 书签：朱文/白文互转，藏于本地 -->
+            <button
+              class="bookmark-btn seal seal--outline seal--sm"
+              type="button"
+              data-bookmark
+              th:attr="data-permalink=${post.status.permalink},data-title=${post.spec.title}"
+              aria-pressed="false"
+              aria-label="收藏本篇"
+            >
+              <span class="bookmark-btn__text">藏</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- 诗句区 -->
         <div class="poem">
-          <blockquote th:utext="${post.content.content}"></blockquote>
+          <div class="poem__body" th:utext="${post.content.content}"></div>
         </div>
+
         <th:block th:replace="~{modules/license-tag :: license-tag}" />
 
-        <div th:if="${not #lists.isEmpty(post.categories)}" style="margin-top:1em;">
-          <th:block th:each="category : ${post.categories}">
-            <a th:href="@{${category.status.permalink}}" th:text="${category.spec.displayName}"></a>
-          </th:block>
-        </div>
-        <div th:if="${not #lists.isEmpty(post.tags)}">
-          <th:block th:each="tag : ${post.tags}">
-            <a th:href="@{${tag.status.permalink}}" th:text="${tag.spec.displayName}"></a>
-          </th:block>
-        </div>
-      </div>
+        <!-- 分类 / 标签 -->
+        <footer
+          class="post__footer"
+          th:if="${not #lists.isEmpty(post.categories)} or ${not #lists.isEmpty(post.tags)}"
+        >
+          <div class="post-taxonomy">
+            <a
+              class="tag tag--blue"
+              th:each="category : ${post.categories}"
+              th:href="@{${category.status.permalink}}"
+              th:text="${category.spec.displayName}"
+            ></a>
+            <a
+              class="tag tag--cipai"
+              th:each="tag : ${post.tags}"
+              th:href="@{${tag.status.permalink}}"
+              th:text="${tag.spec.displayName}"
+            ></a>
+          </div>
+        </footer>
+
+        <!-- 上一首 / 下一首：翻卷寻章 -->
+        <nav
+          class="post__nav"
+          th:with="postCursor = ${postFinder.cursor(post.metadata.name)}"
+          th:if="${postCursor.previous != null or postCursor.next != null}"
+          aria-label="相邻诗篇"
+        >
+          <a
+            class="post__nav-item post__nav-prev"
+            th:if="${postCursor.previous != null}"
+            th:href="@{${postCursor.previous.status.permalink}}"
+          >
+            <span class="post__nav-dir">&larr; 上一首</span>
+            <span class="post__nav-title" th:text="${postCursor.previous.spec.title}"></span>
+          </a>
+          <a
+            class="post__nav-item post__nav-next"
+            th:if="${postCursor.next != null}"
+            th:href="@{${postCursor.next.status.permalink}}"
+          >
+            <span class="post__nav-dir">下一首 &rarr;</span>
+            <span class="post__nav-title" th:text="${postCursor.next.spec.title}"></span>
+          </a>
+        </nav>
+      </article>
 
       <th:block th:if="${haloCommentEnabled}">
         <div class="post">

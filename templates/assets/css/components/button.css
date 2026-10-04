@@ -1,0 +1,59 @@
+/* ============================================================================
+   components/button.css —— 按钮：素底细边框，朱砂 hover；触控 ≥ 44px
+   ============================================================================ */
+
+.btn,
+button.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--tap-target);
+  padding: var(--space-2) var(--space-5);
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  letter-spacing: var(--ls-caps);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: var(--border-hair);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition-ink);
+}
+.btn:hover {
+  color: var(--color-accent-text);
+  border-color: var(--color-accent-border);
+  background-color: var(--color-accent-soft);
+}
+.btn:active { transform: translateY(1px); }
+
+/* 主按钮：朱砂实底 */
+.btn--primary {
+  color: var(--color-seal-text);
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+.btn--primary:hover {
+  color: var(--color-seal-text);
+  background-color: var(--color-accent-deep);
+  border-color: var(--color-accent-deep);
+}
+
+/* 幽灵按钮：只留细线 */
+.btn--ghost {
+  background: transparent;
+  border-color: var(--color-border-strong);
+}
+
+/* 文字按钮：极小视觉负担 */
+.btn--text {
+  min-height: var(--tap-target);
+  padding: 0 var(--space-2);
+  background: none;
+  border: 0;
+  color: var(--color-link);
+}
+.btn--text:hover { color: var(--color-accent-text); background: none; }
+
+.btn[disabled],
+.btn:disabled { opacity: .55; cursor: not-allowed; }

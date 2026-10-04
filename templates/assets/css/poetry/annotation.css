@@ -1,0 +1,99 @@
+/* ============================================================================
+   poetry/annotation.css —— 注释 / 笺注 / 赏析 / 注音
+   字号小于正文，竹青作点缀；散文体首行缩进 2em（诗句不缩进，见 poem.css）。
+   ============================================================================ */
+
+/* 笺注容器 */
+.annot,
+aside.annot,
+.annotation {
+  margin-block: var(--space-block);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface-sunken);
+  border: var(--border-hair);
+  border-left: 3px solid var(--cat-green-base);   /* 竹青点缀 */
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}
+.annot__title,
+.annot > h2, .annot > h3, .annot > h4 {
+  font-family: var(--font-poem);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-medium);
+  color: var(--cat-green-deep);
+  letter-spacing: var(--ls-title);
+  margin-bottom: var(--space-2);
+}
+.annot p + p { margin-top: var(--gap-stack); }
+.annot p { text-indent: var(--indent-prose); }     /* 散文体：首行缩进 */
+.annot a { color: var(--cat-blue-deep); }
+.annot a:hover { color: var(--color-accent-text); }
+
+/* 靛青变体：注释用蓝，笺证用绿，便于区分层次 */
+.annot--blue { border-left-color: var(--cat-blue-base); }
+.annot--blue .annot__title,
+.annot--blue > h2, .annot--blue > h3 { color: var(--cat-blue-deep); }
+
+/* 赏析 */
+.appreciation {
+  margin-block: var(--space-block);
+  padding-top: var(--space-4);
+  border-top: var(--border-hair);
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
+}
+.appreciation h2, .appreciation h3 {
+  font-family: var(--font-poem);
+  font-size: var(--fs-lg);
+  color: var(--color-heading);
+  margin-bottom: var(--space-3);
+}
+.appreciation p { text-indent: var(--indent-prose); }
+.appreciation p + p { margin-top: var(--gap-stack); }
+
+/* 注释条目：悬挂缩进，编号用朱砂 */
+.annot-list { margin: 0; padding: 0; list-style: none; font-size: var(--fs-sm); }
+.annot-list li {
+  padding-left: 2.2em;
+  text-indent: -2.2em;
+  line-height: var(--lh-body);
+  color: var(--color-text-muted);
+}
+.annot-list li + li { margin-top: var(--space-2); }
+.annot-list li::before {
+  content: attr(data-index);
+  display: inline-block;
+  width: 2em;
+  color: var(--color-accent-text);
+  font-family: var(--font-latin);
+  text-align: right;
+  margin-right: .2em;
+}
+
+/* 注音：ruby 与行内小注 */
+ruby rt {
+  font-family: var(--font-sans);
+  font-size: .55em;
+  color: var(--color-text-muted);
+  letter-spacing: 0;
+}
+.gloss {
+  font-size: .78em;
+  color: var(--color-text-muted);
+  vertical-align: super;
+  letter-spacing: 0;
+}
+
+/* 校勘记：淡墨小字，右侧对齐 */
+.collation {
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  text-align: right;
+  margin-top: var(--space-2);
+}
+
+@media screen and (max-width: 500px) {
+  .annot { margin-inline: var(--space-2); padding: var(--space-3) var(--space-4); }
+}

@@ -1,0 +1,173 @@
+/* ============================================================================
+   tokens/colors.css —— 中国传统色板 + 语义色令牌
+   ----------------------------------------------------------------------------
+   双轨制，禁止跨轨取值：
+     --c-*      色名轨（朱砂 / 靛青 / 宣纸…），只允许被本文件的语义轨引用
+     --cat-*    分类色三档：light（浅底）/ base（描边·装饰）/ deep（文字）
+     --color-*  语义轨，所有组件样式只允许用这一层，杜绝魔法值
+   对比度：文字档按「宣纸底 / 玄色底」逐一核算，正文级均 ≥ 4.5:1。
+   黄系明度过高，只作装饰（高亮底、纸纹、描边），不用于文字。
+   ============================================================================ */
+
+:root {
+  /* ——— 红系：主色族，朱砂为印泥红 ——— */
+  --c-zhusha:   #C3272B; /* 朱砂 · 主色：印章 / 强调 / hover */
+  --c-yanzhi:   #9D2933; /* 胭脂 · 深文字档（6.5:1） */
+  --c-jiang:    #8C4356; /* 绛 · 已访问链接（5.9:1） */
+  --c-haitang:  #DB5A6B; /* 海棠红 · 暗底提亮（4.5:1） */
+  --c-fei:      #C83C23; /* 绯 · 暗底印章 */
+
+  /* ——— 黄系：点缀族，不作文字色 ——— */
+  --c-xiang:      #F0C239; /* 缃色 · 高亮 / 书脊 */
+  --c-tenghuang:  #FFB61E; /* 藤黄 */
+  --c-hupo:       #CA6924; /* 琥珀 */
+  --c-qiuxiang:   #D9B611; /* 秋香 */
+  --c-yase:       #EEDEB0; /* 牙色 */
+
+  /* ——— 蓝系：辅助族，链接与标题 ——— */
+  --c-dianqing: #177CB0; /* 靛青 */
+  --c-shiqing:  #1685A9; /* 石青 · 描边档 */
+  --c-zangqing: #2E4E7E; /* 藏青 · 链接文字（7.2:1） */
+  --c-qunqing:  #4C8DAE; /* 群青 · 暗底链接（4.5:1） */
+  --c-dai:      #4A4266; /* 黛 */
+
+  /* ——— 绿系：辅助族，笺注与分隔 ——— */
+  --c-zhuqing: #789262; /* 竹青 · 描边档 */
+  --c-songhua: #057748; /* 松花绿 · 文字档（5.0:1） */
+  --c-qingbi:  #48C0A3; /* 青碧 */
+  --c-doulv:   #9ED048; /* 豆绿 */
+  --c-canglv:  #519A73; /* 苍绿 */
+
+  /* ——— 紫系：点缀族，词牌与稀有强调 ——— */
+  --c-qinglian: #8D4BBB; /* 青莲 · 描边档（4.7:1） */
+  --c-zitang:   #56004F; /* 紫棠 · 文字档 */
+  --c-xueqing:  #B0A4E3; /* 雪青 */
+  --c-ouhe:     #E4C6D0; /* 藕荷 */
+
+  /* ——— 中性：纸与墨 ——— */
+  --c-xuanzhi: #F5EFE0; /* 宣纸 · 明底 */
+  --c-su:      #FFFBF0; /* 素 · 卡片浮起层 */
+  --c-mi:      #EFE3D0; /* 米 · 凹陷层 / 细线 */
+  --c-mo:      #3D3B4F; /* 墨 · 正文 */
+  --c-xuan:    #1F1D2B; /* 玄 · 暗底 */
+  --c-danmo:   #6B6B7B; /* 淡墨 · 次级文字（5.0:1） */
+  --c-hese:    #332E24; /* 褐墨 · 代码块底 */
+
+  /* ——— 分类色三档（标签 / 词牌 / 图表共用）——— */
+  --cat-red-light:    #F8E6E4; --cat-red-base:    var(--c-zhusha);   --cat-red-deep:    var(--c-yanzhi);
+  --cat-blue-light:   #E3EEF6; --cat-blue-base:   var(--c-shiqing);  --cat-blue-deep:   var(--c-zangqing);
+  --cat-green-light:  #E8F0E2; --cat-green-base:  var(--c-zhuqing);  --cat-green-deep:  var(--c-songhua);
+  --cat-purple-light: #F0E7F7; --cat-purple-base: var(--c-qinglian); --cat-purple-deep: var(--c-zitang);
+  --cat-ink-light:    #EDEAE2; --cat-ink-base:    var(--c-danmo);    --cat-ink-deep:    var(--c-mo);
+  --cat-gold-light:   #FBF1D5; --cat-gold-base:   var(--c-xiang);    --cat-gold-deep:   var(--c-hupo);
+
+  /* ========================= 语义轨：明（宣纸）========================= */
+  --color-bg:             var(--c-xuanzhi);           /* 页面底 */
+  --color-bg-elevated:    var(--c-su);                /* 浮起一层 */
+  --color-surface:        var(--c-su);                /* 卡片 / 诗笺 */
+  --color-surface-sunken: var(--c-mi);                /* 凹陷 / 表头 */
+  --color-text:           var(--c-mo);                /* 正文 10.9:1 */
+  --color-text-muted:     var(--c-danmo);             /* 次级 5.0:1 */
+  --color-heading:        #2F2D3E;                    /* 标题，墨再压深一档 */
+  --color-subtitle:       var(--c-danmo);             /* 副题 / 日期 */
+  --color-discussion:     var(--c-yanzhi);            /* 讨论区（旧 .discussion） */
+
+  --color-link:           var(--c-zangqing);          /* 7.2:1 */
+  --color-link-hover:     var(--c-zhusha);            /* 5.0:1 */
+  --color-link-visited:   var(--c-jiang);             /* 5.9:1 */
+
+  --color-accent:         var(--c-zhusha);            /* 朱砂 */
+  --color-accent-text:    var(--c-zhusha);            /* 强调文字 5.0:1 */
+  --color-accent-deep:    var(--c-yanzhi);            /* 深强调 6.5:1 */
+  --color-accent-soft:    rgba(195, 39, 43, .07);     /* 极淡底 */
+  --color-accent-border:  rgba(195, 39, 43, .32);
+  --color-accent-glow:    rgba(195, 39, 43, .16);
+
+  --color-border:         rgba(61, 59, 79, .16);
+  --color-border-strong:  rgba(61, 59, 79, .30);
+  --color-hairline:       var(--c-mi);
+  --color-mark:           rgba(240, 194, 57, .38);    /* 缃色高亮，仅装饰 */
+
+  --color-seal-bg:        var(--c-zhusha);            /* 印章底 */
+  --color-seal-text:      var(--c-su);                /* 反白字 5.0:1 */
+  --color-seal-border:    rgba(195, 39, 43, .55);
+
+  --color-code-bg:        var(--c-hese);
+  --color-code-text:      #F3EADB;
+  --color-code-border:    rgba(61, 59, 79, .28);
+
+  --color-grid-line:      rgba(180, 83, 9, .07);      /* 与全局网格背景一致 */
+  --color-paper-ink:      rgba(90, 70, 40, .55);      /* 纸纹墨点色 */
+
+  --color-focus-ring:     var(--c-zangqing);
+  --color-selection-bg:   rgba(240, 194, 57, .30);
+  --color-selection-text: var(--c-mo);
+
+  /* 打印态：纯墨白，去纸纹 */
+  --color-print-bg:   #FFFFFF;
+  --color-print-text: #000000;
+}
+
+/* ========================= 语义轨：暗（墨夜）========================= */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg:             var(--c-xuan);             /* 玄，不取纯黑 */
+    --color-bg-elevated:    #272335;
+    --color-surface:        #26222F;
+    --color-surface-sunken: #1A1824;
+    --color-text:           var(--c-xuanzhi);          /* 宣纸为字，不取纯白 */
+    --color-text-muted:     #B9B2A2;                   /* 7.8:1 */
+    --color-heading:        #F7F1E4;
+    --color-subtitle:       #B9B2A2;
+    --color-discussion:     var(--c-haitang);
+
+    --color-link:           var(--c-qunqing);          /* 群青 4.5:1 */
+    --color-link-hover:     var(--c-haitang);          /* 海棠红 4.5:1 */
+    --color-link-visited:   var(--c-xueqing);
+
+    --color-accent:         var(--c-fei);              /* 绯 · 印章底 */
+    --color-accent-text:    var(--c-haitang);          /* 4.5:1 */
+    --color-accent-deep:    var(--c-haitang);
+    --color-accent-soft:    rgba(219, 90, 107, .12);
+    --color-accent-border:  rgba(219, 90, 107, .42);
+    --color-accent-glow:    rgba(219, 90, 107, .20);
+
+    --color-border:         rgba(245, 239, 224, .16);
+    --color-border-strong:  rgba(245, 239, 224, .30);
+    --color-hairline:       #302B3B;
+    --color-mark:           rgba(240, 194, 57, .22);
+
+    --color-seal-bg:        var(--c-fei);
+    --color-seal-text:      var(--c-su);
+    --color-seal-border:    rgba(219, 90, 107, .55);
+
+    --color-code-bg:        #211D18;
+    --color-code-text:      #F1E7D6;
+    --color-code-border:    rgba(245, 239, 224, .16);
+
+    --color-grid-line:      rgba(240, 194, 57, .05); /* 暗底界行，缃色极淡 */
+    --color-paper-ink:      rgba(240, 194, 57, .40);
+
+    --color-focus-ring:     var(--c-haitang);
+    --color-selection-bg:   rgba(219, 90, 107, .28);
+    --color-selection-text: var(--c-su);
+  }
+}
+
+/* ========================= 高对比度偏好 ========================== */
+@media (prefers-contrast: more) {
+  :root {
+    --color-text:        var(--c-xuan);
+    --color-text-muted:  #3A3847;
+    --color-heading:     var(--c-xuan);
+    --color-border:      rgba(31, 29, 43, .55);
+    --color-border-strong: rgba(31, 29, 43, .75);
+    --color-link:        var(--c-zangqing);
+    --color-accent-text: var(--c-yanzhi);
+    --texture-paper-opacity: 0;      /* 关闭纸纹，避免干扰 */
+    --color-grid-line:   transparent;
+    --shadow-1: none;
+    --shadow-2: none;
+    --shadow-3: none;
+  }
+}

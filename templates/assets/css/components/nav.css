@@ -1,0 +1,70 @@
+/* ============================================================================
+   components/nav.css —— 主导航：字距舒展的目录条 + 文武线版框
+   当前项以朱砂方点标示（悬于字上，如句读）；
+   导航下缘仿古籍版框「文武线」：一粗一细双线收边。
+   仅作用于 .site-nav，不影响 .pagination / .post__nav。
+   ============================================================================ */
+
+.site-nav {
+  text-align: center;
+  margin: 0 auto;
+  padding-bottom: var(--space-3);
+  font-family: var(--font-poem);
+  font-size: var(--fs-md);
+  letter-spacing: .22em;
+}
+
+/* 文武线：粗细分界双线 */
+.site-nav::after {
+  content: "";
+  display: block;
+  margin-top: var(--space-3);
+  height: 6px;
+  border-top: 2.5px solid color-mix(in srgb, var(--color-heading) 82%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-heading) 60%, transparent);
+}
+
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target);
+  padding-inline: var(--space-2);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-ink);
+}
+.site-nav a:hover { color: var(--color-accent-text); }
+
+/* 当前项：朱砂方点悬于字上 */
+.site-nav a[aria-current="page"],
+.site-nav .nav-current {
+  color: var(--color-accent-text);
+}
+.site-nav a[aria-current="page"]::before,
+.site-nav .nav-current::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  translate: -50% 0;
+  width: 5px;
+  height: 5px;
+  rotate: 45deg;
+  background: var(--color-accent);
+}
+
+@media screen and (max-width: 500px) {
+  .site-nav { font-size: var(--fs-base); letter-spacing: .1em; }
+  .site-nav ul { gap: var(--space-1) var(--space-4); }
+}

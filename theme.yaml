@@ -3,18 +3,18 @@ kind: Theme
 metadata:
   name: halo-theme-lyricall
 spec:
-  displayName: Lyricall
+  displayName: Lyricall 诗笺
   author:
     name: exyone
     website: https://blackblog.cz/
-  description: A minimalistic platform for poetry, migrated from the Jekyll Lyricall theme.
+  description: 国风个人诗集主题 —— 宣纸为底、界行为格、朱砂为印，专为中文诗词集设计的 Halo 主题，由 Jekyll Lyricall 迁移而来。
   logo: /themes/halo-theme-lyricall/assets/images/logo.svg
   homepage: https://github.com/yagarea/lyricall
   repo: https://github.com/exyone-js/halo-theme-lyricall.git
   issues: https://github.com/exyone-js/halo-theme-lyricall/issues
   settingName: lyricall-setting
   configMapName: lyricall-configMap
-  version: 1.1.0
+  version: 1.2.0
   requires: ">=2.20.0"
   license:
     - name: "License"

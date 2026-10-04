@@ -1,0 +1,195 @@
+/* ============================================================================
+   poetry/poem.css —— 诗词排版核心（本主题第一性原则）
+   ----------------------------------------------------------------------------
+   规则要点：
+   1) 诗句一律 --font-poem（霞鹜文楷），行高 1.9，字距 .08em，text-indent: 0；
+   2) 诗行之间不用空行，靠极小 margin 控制呼吸；
+   3) 首行缩进只给散文体（赏析/注释），诗句绝不缩进；
+   4) 对仗：.couplet 双列 grid，窄屏（≤40em）自动单列；
+   5) 竖排：加 .verse-vertical 开关，处理标点直立与数字 upright。
+   ============================================================================ */
+
+.poem {
+  font-family: var(--font-poem);
+  font-size: var(--fs-poem);
+  max-width: var(--measure-poem);
+  margin-inline: auto;
+  padding-block: var(--space-4);
+}
+
+/* ——— 诗题：思源宋体，端正庄重 ——— */
+.poem__title,
+.poem h1.poem-title,
+.poem > h1 {
+  font-family: var(--font-serif);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-title);
+  color: var(--color-heading);
+  text-align: center;
+  margin-bottom: var(--space-1);
+}
+/* 偏右版式：给 .poem__title--right */
+.poem__title--right { text-align: right; padding-right: var(--space-2); }
+
+/* 题下小字：词牌 / 朝代 / 作者 */
+.poem__meta,
+.poem-subtitle {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-normal);
+  color: var(--color-subtitle);
+  margin-bottom: var(--space-4);
+}
+.poem__meta .sep { color: var(--color-border-strong); }
+.poem__author,
+.poem__meta .poem__author {
+  font-family: var(--font-serif);
+  font-size: var(--fs-sm);
+  letter-spacing: var(--ls-title);
+  color: var(--color-heading);
+  text-decoration: none;
+}
+a.poem__author:hover { color: var(--color-accent-text); text-decoration: none; }
+
+/* ——— 小序 ——— */
+.poem__preface,
+.poem-preface {
+  font-family: var(--font-poem);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-normal);
+  color: var(--color-text-muted);
+  max-width: 32em;
+  margin: 0 auto var(--space-5);
+  padding-left: var(--space-4);
+  border-left: 1px solid var(--color-border-strong);
+  text-align: left;
+}
+/* 括号包裹式小序 */
+.poem__preface--brackets {
+  border-left: 0;
+  padding-left: 0;
+  text-align: center;
+}
+.poem__preface--brackets::before { content: "（"; color: var(--color-border-strong); }
+.poem__preface--brackets::after  { content: "）"; color: var(--color-border-strong); }
+
+/* ——— 诗句块 ——— */
+.poem__body,
+.verse-block {
+  margin-block: var(--space-2);
+  letter-spacing: var(--ls-poem);
+  line-height: var(--lh-poem);
+}
+
+.poem .poem-line,
+.poem .verse,
+.verse {
+  text-indent: 0;               /* 诗句绝不缩进 */
+  margin: 0 0 var(--gap-poem);
+  padding: 0;
+  font-size: var(--fs-poem);
+  line-height: var(--lh-poem);
+  letter-spacing: var(--ls-poem);
+  white-space: pre-wrap;         /* 保留手工排布的空格对位 */
+}
+.poem p { margin: 0 0 var(--gap-poem); }
+.poem p:last-of-type { margin-bottom: 0; }
+
+/* 大字诗句（详情页 / 独立展示） */
+.poem--large .poem-line,
+.verse--large { font-size: var(--fs-poem-lg); letter-spacing: var(--ls-poem-lg); }
+
+/* ——— 对仗：上下句双列 ——— */
+.couplet {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-6);
+  row-gap: var(--gap-poem);
+  margin-block: var(--gap-poem);
+}
+@container (max-width: 40em) {
+  .couplet { grid-template-columns: 1fr; }
+}
+@media screen and (max-width: 640px) {
+  .couplet { grid-template-columns: 1fr; }
+}
+
+/* ——— 落款：右下角楷体 ——— */
+.poem__sign,
+.poem-sign {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  font-family: var(--font-poem);
+  font-size: var(--fs-sm);
+  letter-spacing: var(--ls-poem);
+  color: var(--color-subtitle);
+  text-align: right;
+}
+.poem__sign time,
+.poem-sign time { font-family: var(--font-latin); letter-spacing: var(--ls-normal); }
+
+/* ——— 分隔纹样：回纹（默认 hr 已是云纹）——— */
+.divider-huiwen {
+  height: 12px;
+  margin: var(--space-6) auto;
+  border: 0;
+  background-color: var(--color-border-strong);
+  -webkit-mask-image: var(--omen-huiwen);
+          mask-image: var(--omen-huiwen);
+  -webkit-mask-repeat: repeat-x;
+          mask-repeat: repeat-x;
+  -webkit-mask-size: 24px 12px;
+          mask-size: 24px 12px;
+}
+
+/* ============================================================================
+   竖排开关：.verse-vertical
+   —— 只影响诗词容器本身，不影响全站；标点直立，两位数字合并直立。
+   ============================================================================ */
+.verse-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  max-height: min(70vh, 34em);
+  max-width: none;
+  margin-inline: auto;
+  padding-block: var(--space-2);
+  line-height: 2;
+  letter-spacing: .12em;
+}
+.verse-vertical .poem__title,
+.verse-vertical h1 { text-align: start; margin-inline-start: var(--space-4); }
+.verse-vertical .poem__meta,
+.verse-vertical .poem__preface { writing-mode: vertical-rl; max-height: 24em; }
+.verse-vertical .couplet { grid-template-columns: 1fr; grid-auto-flow: column; }
+/* 竖排下数字与拉丁字母合并直立（如"一九八四"、年份） */
+.verse-vertical .num,
+.verse-vertical time,
+.verse-vertical .latin {
+  text-combine-upright: all;
+  -webkit-text-combine: horizontal;
+  font-family: var(--font-latin);
+  letter-spacing: 0;
+}
+/* 竖排容器允许横向滚动，避免长诗撑破视口 */
+.verse-vertical-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding-block: var(--space-4);
+}
+
+@media screen and (max-width: 500px) {
+  .poem { padding-inline: var(--space-2); }
+  .poem__title { font-size: var(--fs-lg); }
+}

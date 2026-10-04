@@ -1,0 +1,80 @@
+/* ============================================================================
+   tokens/typography.css —— 字体栈、流体字号阶梯、行高与字距
+   ----------------------------------------------------------------------------
+   原则：
+   1) 诗句正文必须使用 --font-poem（霞鹜文楷），回退链到系统楷体，视觉不塌；
+   2) 字号全部走 clamp()，断点间连续过渡，杜绝跳变；
+   3) 中文标题不加粗（楷/宋加粗易糊），层级用字号 + 色彩建立。
+   ============================================================================ */
+
+/* —— 等宽 / 装饰字体（沿用原有资源）—— */
+@font-face {
+  font-family: CutiveMono;
+  src: url("../fonts/CutiveMono-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-display: swap;
+  text-rendering: optimizeLegibility;
+}
+@font-face {
+  font-family: BetterGrade;
+  src: url("../fonts/BetterGrade.ttf") format("truetype");
+  font-style: normal;
+  font-display: swap;
+  text-rendering: optimizeLegibility;
+}
+
+:root {
+  /* ——— 字体栈 ——— */
+  --font-poem:  "LXGW WenKai", "霞鹜文楷", "LXGW WenKai Screen",
+                "Kaiti SC", "STKaiti", "楷体", "KaiTi",
+                "Noto Serif SC", "Source Han Serif SC", serif;
+  --font-serif: "Source Han Serif VF", "Source Han Serif SC", "Noto Serif SC",
+                "Songti SC", "STSong", "宋体", serif;
+  --font-sans:  "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-kai:   "Kaiti SC", "STKaiti", "楷体", "KaiTi", var(--font-poem);
+  --font-latin: "EB Garamond", Georgia, serif;
+  --font-mono:  CutiveMono, "Courier New", monospace;
+  --font-deco:  BetterGrade, var(--font-poem);
+
+  /* ——— 流体字号阶梯（16px 基准，最大约 18px）——— */
+  --fs-2xs:   .75rem;                                  /* 12 · 页脚/角标 */
+  --fs-xs:    .8125rem;                                /* 13 · 小序/标签 */
+  --fs-sm:    .875rem;                                 /* 14 · 笺注 */
+  --fs-base:  clamp(1rem,      .96rem + .20vw, 1.125rem);   /* 16→18 正文 */
+  --fs-md:    clamp(1.0625rem, 1rem    + .30vw, 1.1875rem); /* 17→19 */
+  --fs-lg:    clamp(1.1875rem, 1.10rem + .50vw, 1.4375rem); /* 19→23 小标题 */
+  --fs-xl:    clamp(1.375rem,  1.20rem + .80vw, 1.75rem);   /* 22→28 诗题 */
+  --fs-2xl:   clamp(1.625rem,  1.30rem + 1.4vw, 2.25rem);   /* 26→36 页标题 */
+  --fs-3xl:   clamp(2rem,      5vw,            3.25rem);    /* 32→52 首页主标题 */
+  --fs-poem:    clamp(1.0625rem, 1rem    + .50vw, 1.3125rem); /* 诗句 */
+  --fs-poem-lg: clamp(1.15rem,   1.05rem + .80vw, 1.5rem);    /* 详情页诗句 */
+
+  /* ——— 行高 ——— */
+  --lh-tight:   1.35;
+  --lh-snug:    1.50;
+  --lh-heading: 1.60;   /* 标题 */
+  --lh-body:    2.00;   /* 中文正文：1.9–2.1 */
+  --lh-poem:    1.90;   /* 诗句：1.8–2.0 */
+  --lh-loose:   2.10;
+  --lh-quote:   1.75;
+
+  /* ——— 字距（楷体宜松）——— */
+  --ls-tight:  -.01em;
+  --ls-normal:  .02em;
+  --ls-poem:    .08em;  /* 诗句：0.05–0.12em */
+  --ls-poem-lg: .12em;  /* 大字诗句更松 */
+  --ls-title:   .06em;
+  --ls-nav:     .14em;
+  --ls-caps:    .10em;
+  --ls-seal:    0;
+
+  /* ——— 字重（中文字体上限 600）——— */
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-bold:   600;
+
+  /* ——— 行宽（measure）——— */
+  --measure:      44em;   /* 正文：单行 30–40 汉字最舒适 */
+  --measure-poem: 34em;   /* 诗句块更窄，留白更足 */
+  --measure-wide: 52em;   /* 列表 / 归档 */
+}

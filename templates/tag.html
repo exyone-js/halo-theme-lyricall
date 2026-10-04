@@ -6,23 +6,21 @@
   <th:block th:with="pageTitle = ${tag.spec.displayName}">
     <th:block th:fragment="content">
       <h2 style="text-align:center;" th:text="${tag.spec.displayName}"></h2>
-      <div class="poem-list" th:each="post : ${posts.items}">
-        <ul class="hfill">
-          <li>
-            <a th:href="@{${post.status.permalink}}">
-              <b th:text="${post.spec.title}"></b>
-            </a>
-          </li>
-          <li class="hide-on-mobile">
-            <span th:if="${post.spec.publishTime != null}"
-              th:text="${#temporals.format(post.spec.publishTime, 'dd. MM. yyyy')}"></span>
+      <div class="archive">
+        <ul class="archive__list">
+          <li class="archive__item" th:each="post : ${posts.items}">
+            <time class="archive__date"
+              th:text="${#temporals.format(post.spec.publishTime, 'yyyy-M-d')}"></time>
+            <a class="archive__title"
+              th:href="@{${post.status.permalink}}"
+              th:text="${post.spec.title}"></a>
           </li>
         </ul>
       </div>
-      <div class="pagination" th:if="${posts.hasPrevious() || posts.hasNext()}">
-        <a th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}"><b>Previous</b></a>
-        <a th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}"><b>Next</b></a>
-      </div>
+      <nav class="pagination" th:if="${posts.hasPrevious() || posts.hasNext()}">
+        <a th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}"><b>&larr; 上一页</b></a>
+        <a th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}"><b>下一页 &rarr;</b></a>
+      </nav>
     </th:block>
   </th:block>
 </html>

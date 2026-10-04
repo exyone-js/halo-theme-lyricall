@@ -1,0 +1,64 @@
+/* ============================================================================
+   pages/archive.css —— 归档 / 关于：竖轴时间线，朱砂点为节
+   ============================================================================ */
+
+.archive {
+  max-width: var(--measure-wide);
+  margin-inline: auto;
+}
+
+.archive__year {
+  font-family: var(--font-latin);
+  font-size: var(--fs-2xl);
+  color: var(--color-heading);
+  letter-spacing: var(--ls-normal);
+  margin-top: var(--space-section);
+  padding-bottom: var(--space-2);
+  border-bottom: var(--border-hair);
+}
+
+.archive__list { list-style: none; margin: 0; padding: 0; }
+
+.archive__item {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding: var(--space-2) 0 var(--space-2) var(--space-6);
+  border-bottom: 1px dashed var(--color-border);
+}
+.archive__item::before {
+  content: "";
+  position: absolute;
+  left: var(--space-1);
+  top: 1.15em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  opacity: .75;
+}
+.archive__item:hover::before { opacity: 1; }
+
+.archive__date {
+  font-family: var(--font-latin);
+  font-size: var(--fs-xs);
+  color: var(--color-subtitle);
+  min-width: 5.5em;
+}
+.archive__title {
+  font-family: var(--font-serif);
+  font-size: var(--fs-md);
+  color: var(--color-text);
+  text-decoration: none;
+}
+.archive__title:hover { color: var(--color-accent-text); }
+
+/* 关于页：散文体，首行缩进 */
+.page-about p { text-indent: var(--indent-prose); }
+.page-about p + p { margin-top: var(--gap-stack); }
+
+@media screen and (max-width: 500px) {
+  .archive__item { flex-direction: column; gap: 0; padding-left: var(--space-5); }
+  .archive__item::before { top: .9em; }
+}

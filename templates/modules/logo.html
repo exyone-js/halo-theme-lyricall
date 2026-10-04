@@ -3,6 +3,11 @@
   <th:block th:fragment="logo">
     <div class="logo">
       <a th:href="@{/}" th:text="${site.title}"></a>
+      <span
+        class="logo__seal seal seal--sm"
+        th:text="${#strings.substring(site.title, 0, 1)}"
+        aria-hidden="true"
+      >诗</span>
     </div>
   </th:block>
 </html>

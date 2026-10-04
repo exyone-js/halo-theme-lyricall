@@ -1,0 +1,39 @@
+/* ============================================================================
+   tokens/spacing.css —— 间距节奏（4px 基准）
+   ----------------------------------------------------------------------------
+   两套并行：
+     --space-N  物理刻度（4px 栅格）
+     --space-*  语义间距（区块 / 卡片 / 段落流），业务优先用语义值
+   ============================================================================ */
+
+:root {
+  /* ——— 物理刻度 ——— */
+  --space-px:  1px;
+  --space-1:   .25rem;  /* 4  */
+  --space-2:   .5rem;   /* 8  */
+  --space-3:   .75rem;  /* 12 */
+  --space-4:   1rem;    /* 16 */
+  --space-5:   1.25rem; /* 20 */
+  --space-6:   1.5rem;  /* 24 */
+  --space-8:   2rem;    /* 32 */
+  --space-10:  2.5rem;  /* 40 */
+  --space-12:  3rem;    /* 48 */
+  --space-16:  4rem;    /* 64 */
+
+  /* ——— 流体间距 ——— */
+  --space-fluid-xs: clamp(.5rem,  .4rem + .4vw,  .75rem);
+  --space-fluid-sm: clamp(.75rem, .6rem + .6vw,  1.25rem);
+  --space-fluid-md: clamp(1rem,   .8rem + 1vw,   2rem);
+  --space-fluid-lg: clamp(1.5rem, 1rem  + 2.5vw, 3.5rem);
+
+  /* ——— 语义间距 ——— */
+  --space-section:  var(--space-fluid-lg);          /* 大区块之间 */
+  --space-block:    var(--space-fluid-md);          /* 卡片之间 */
+  --space-inline:   var(--space-2);                 /* 行内元素之间 */
+  --gap-stack:      clamp(.75em, .6em + .4vw, 1.15em); /* 段落流间距 */
+  --gap-poem:       clamp(.25em, .2em + .3vw, .5em);   /* 诗行之间（靠呼吸不靠空行）*/
+  --pad-card:       clamp(1rem,  .8rem + 1vw, 1.75rem);
+  --pad-inline:     clamp(1rem,  .8rem + 1.2vw, 2rem);
+  --indent-prose:   2em;                            /* 散文体首行缩进 */
+  --tap-target:     44px;                           /* 触控目标下限 */
+}

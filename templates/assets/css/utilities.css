@@ -1,0 +1,70 @@
+/* ============================================================================
+   utilities.css —— 工具类与全局兜底（位于最末 layer，天然胜出，无需 !important）
+   ============================================================================ */
+
+/* ——— 可访问性 ——— */
+.visually-hidden,
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ——— 排版工具 ——— */
+.center { text-align: center; }
+.text-right { text-align: right; }
+.text-muted { color: var(--color-text-muted); }
+.text-accent { color: var(--color-accent-text); }
+.indent { text-indent: var(--indent-prose); }        /* 兼容旧类名 */
+.no-indent { text-indent: 0; }
+.small { font-size: var(--fs-sm); }
+.kai { font-family: var(--font-poem); }
+.song { font-family: var(--font-serif); }
+.latin { font-family: var(--font-latin); letter-spacing: var(--ls-normal); }
+.nowrap { white-space: nowrap; }
+.measure { max-width: var(--measure); margin-inline: auto; }
+
+/* ——— 节奏工具 ——— */
+.mt-0 { margin-top: 0; }
+.mt-2 { margin-top: var(--space-2); }
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+.mb-0 { margin-bottom: 0; }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-6 { margin-bottom: var(--space-6); }
+
+/* ——— 响应式显隐 ——— */
+@media screen and (max-width: 500px) {
+  .hide-on-mobile { display: none; }
+}
+@media screen and (min-width: 501px) {
+  .mobile-only { display: none; }
+}
+
+/* ——— 防止横向滚动 ——— */
+.overflow-guard { max-width: 100%; overflow-x: auto; }
+
+/* ——— 动效降级兜底：位于最后一层，可覆盖任何动画声明 ——— */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms;
+    animation-iteration-count: 1;
+    transition-duration: .01ms;
+    scroll-behavior: auto;
+  }
+}
+
+/* ——— 打印：去纹理、去阴影，纯墨 ——— */
+@media print {
+  html::before { display: none; }
+  body { background: var(--color-print-bg); color: var(--color-print-text); }
+  .card, .post-short, .post, .annot { box-shadow: none; background: var(--color-print-bg); }
+  nav, .pagination, .toc { display: none; }
+  a { color: var(--color-print-text); text-decoration: underline; }
+}
