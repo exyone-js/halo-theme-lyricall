@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{layout :: html(head = null, content = ~{::content})}"
+>
+  <th:block th:with="pageTitle = 'Recently published', activeTab = 'Home'">
+    <th:block th:fragment="content">
+      <div>
+        <div class="post-short" th:each="post : ${posts.items}">
+          <a th:href="@{${post.status.permalink}}">
+            <h2 th:text="${post.spec.title}"></h2>
+          </a>
+          <a th:if="${post.owner != null}" th:href="@{${post.owner.permalink}}">
+            <h3 th:text="${post.owner.displayName}"></h3>
+          </a>
+          <i th:if="${post.spec.publishTime != null}">
+            posted on
+            <span th:text="${#temporals.format(post.spec.publishTime, 'd MMM yyyy', T(java.util.Locale).ENGLISH)}"></span>
+          </i>
+          <th:block th:if="${not #strings.isEmpty(post.status.excerpt)}">
+            <blockquote th:utext="${post.status.excerpt}"></blockquote>
+            <a class="excerpt-link" th:href="@{${post.status.permalink}}"><i>Read more...</i></a>
+          </th:block>
+        </div>
+      </div>
+
+      <div class="pagination" th:if="${posts.hasPrevious() || posts.hasNext()}">
+        <span class="page_number">
+          Page: <i th:text="${posts.page}"></i> of
+          <i th:text="${posts.totalPages}"></i>
+        </span>
+        <br />
+        <a th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}" class="previous">
+          <b>Previous</b>
+        </a>
+        <a th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}" class="next">
+          <b>Next</b>
+        </a>
+      </div>
+    </th:block>
+  </th:block>
+</html>

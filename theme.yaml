@@ -1,0 +1,21 @@
+apiVersion: theme.halo.run/v1alpha1
+kind: Theme
+metadata:
+  name: halo-theme-lyricall
+spec:
+  displayName: Lyricall
+  author:
+    name: Jan Černý
+    website: https://blackblog.cz/
+  description: A minimalistic platform for poetry, migrated from the Jekyll Lyricall theme.
+  logo: /themes/halo-theme-lyricall/assets/images/logo.svg
+  homepage: https://github.com/yagarea/lyricall
+  repo: https://github.com/yagarea/lyricall.git
+  issues: https://github.com/yagarea/lyricall/issues
+  settingName: lyricall-setting
+  configMapName: lyricall-configMap
+  version: 1.0.0
+  requires: ">=2.20.0"
+  license:
+    - name: "License"
+      url: "https://github.com/yagarea/lyricall/blob/master/LICENSE"

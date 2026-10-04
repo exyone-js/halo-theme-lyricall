@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{layout :: html(head = ~{::head}, content = ~{::content})}"
+>
+  <th:block th:with="pageTitle = ${post.spec.title}">
+    <th:block th:fragment="head">
+      <meta name="description" th:content="${post.status.excerpt}" />
+      <link rel="canonical" th:href="${site.url + post.status.permalink}" />
+      <meta property="og:title" th:content="${post.spec.title}" />
+      <meta property="og:type" content="article" />
+      <meta property="og:url" th:content="${site.url + post.status.permalink}" />
+      <meta property="og:description" th:content="${post.status.excerpt}" />
+    </th:block>
+
+    <th:block th:fragment="content">
+      <div class="post">
+        <h1 th:text="${post.spec.title}"></h1>
+        <a th:if="${post.owner != null}" th:href="@{${post.owner.permalink}}">
+          <h3 th:text="${post.owner.displayName}"></h3>
+        </a>
+        <i th:if="${post.spec.publishTime != null}">
+          posted on
+          <span th:text="${#temporals.format(post.spec.publishTime, 'd MMM yyyy', T(java.util.Locale).ENGLISH)}"></span>
+        </i>
+        <div class="poem">
+          <blockquote th:utext="${post.content.content}"></blockquote>
+        </div>
+        <th:block th:replace="~{modules/license-tag :: license-tag}" />
+
+        <div th:if="${not #lists.isEmpty(post.categories)}" style="margin-top:1em;">
+          <th:block th:each="category : ${post.categories}">
+            <a th:href="@{${category.status.permalink}}" th:text="${category.spec.displayName}"></a>
+          </th:block>
+        </div>
+        <div th:if="${not #lists.isEmpty(post.tags)}">
+          <th:block th:each="tag : ${post.tags}">
+            <a th:href="@{${tag.status.permalink}}" th:text="${tag.spec.displayName}"></a>
+          </th:block>
+        </div>
+      </div>
+
+      <th:block th:if="${haloCommentEnabled}">
+        <div class="post">
+          <halo:comment
+            group="content.halo.run"
+            kind="Post"
+            th:attr="name=${post.metadata.name}"
+          />
+        </div>
+      </th:block>
+    </th:block>
+  </th:block>
+</html>

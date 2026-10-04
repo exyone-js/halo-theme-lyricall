@@ -1,0 +1,75 @@
+apiVersion: v1alpha1
+kind: Setting
+metadata:
+  name: lyricall-setting
+spec:
+  forms:
+    - group: style
+      label: 样式
+      formSchema:
+        - $formkit: radio
+          name: color_scheme
+          label: 配色方案
+          value: system
+          options:
+            - label: 跟随系统
+              value: system
+            - label: 浅色
+              value: light
+            - label: 深色
+              value: dark
+        - $formkit: color
+          name: body_color
+          label: 背景颜色（浅色）
+          value: "#EBEBEB"
+        - $formkit: color
+          name: body_color_dark
+          label: 背景颜色（深色）
+          value: "#313131"
+        - $formkit: color
+          name: text_color
+          label: 文字颜色（浅色）
+          value: "#000000"
+        - $formkit: color
+          name: text_color_dark
+          label: 文字颜色（深色）
+          value: "#FFFFFF"
+        - $formkit: color
+          name: post_frame_color
+          label: 卡片背景（浅色）
+          value: "#D3D3D3"
+        - $formkit: color
+          name: post_frame_color_dark
+          label: 卡片背景（深色）
+          value: "#242526"
+    - group: layout
+      label: 布局
+      formSchema:
+        - $formkit: number
+          name: page_size
+          label: 首页每页文章数
+          value: 15
+          min: 1
+          max: 100
+    - group: content
+      label: 内容
+      formSchema:
+        - $formkit: text
+          name: license_name
+          label: 文章许可名称
+          value: "CC BY-NC-ND 4.0"
+        - $formkit: text
+          name: license_url
+          label: 文章许可链接
+          value: "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+        - $formkit: text
+          name: footer_extra
+          label: 页脚额外说明
+          value: ""
+    - group: functional
+      label: 功能
+      formSchema:
+        - $formkit: checkbox
+          name: enable_katex
+          label: 启用 KaTeX 数学公式
+          value: true

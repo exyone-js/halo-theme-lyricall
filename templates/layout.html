@@ -1,0 +1,62 @@
+<!doctype html>
+<html
+  lang="en"
+  xmlns:th="https://www.thymeleaf.org"
+  th:fragment="html (head, content)"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#313131" />
+    <title th:text="${site.title} + ' | ' + ${pageTitle}"></title>
+    <meta name="author" th:content="${site.title}" />
+    <link
+      rel="stylesheet"
+      th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="print"
+      th:href="@{/assets/css/print.css?v={version}(version=${theme.spec.version})}"
+    />
+    <th:block th:if="${theme.config.functional.enable_katex != false}">
+      <link
+        rel="stylesheet"
+        th:href="@{/assets/katex/katex.min.css?v={version}(version=${theme.spec.version})}"
+      />
+    </th:block>
+    <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
+    <link rel="apple-touch-icon" th:href="@{/assets/apple-icon.png}" />
+    <link rel="manifest" th:href="@{/assets/manifest.json}" />
+    <th:block th:if="${theme.config.style.color_scheme == 'light'}">
+      <style th:utext="':root{' +
+        '--body-color:' + ${theme.config.style.body_color} + ';' +
+        '--text-color:' + ${theme.config.style.text_color} + ';' +
+        '--post-frame-color:' + ${theme.config.style.post_frame_color} + ';' +
+        '}'"></style>
+    </th:block>
+    <th:block th:if="${theme.config.style.color_scheme == 'dark'}">
+      <style th:utext="':root{' +
+        '--body-color:' + ${theme.config.style.body_color_dark} + ';' +
+        '--text-color:' + ${theme.config.style.text_color_dark} + ';' +
+        '--post-frame-color:' + ${theme.config.style.post_frame_color_dark} + ';' +
+        '--link-color:#FFFFFF;--link-visited-color:#FFFFFF;--logo-color:#FFFFFF;' +
+        '}'"></style>
+    </th:block>
+    <th:block th:if="${head != null}">
+      <th:block th:replace="${head}" />
+    </th:block>
+  </head>
+  <body>
+    <main>
+      <th:block th:replace="~{modules/logo :: logo}" />
+      <th:block th:replace="~{modules/nav :: nav}" />
+      <div class="content-left">
+        <th:block th:replace="${content}" />
+      </div>
+      <th:block th:replace="~{modules/footer :: footer}" />
+    </main>
+    <halo:footer />
+  </body>
+</html>

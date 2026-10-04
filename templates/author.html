@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{layout :: html(head = null, content = ~{::content})}"
+>
+  <th:block th:with="pageTitle = ${author.displayName}">
+    <th:block th:fragment="content">
+      <h2 style="text-align:center;" th:text="${author.displayName}"></h2>
+      <div class="poem-list" th:each="post : ${posts.items}">
+        <ul class="hfill">
+          <li>
+            <a th:href="@{${post.status.permalink}}">
+              <b th:text="${post.spec.title}"></b>
+            </a>
+          </li>
+          <li class="hide-on-mobile">
+            <span th:if="${post.spec.publishTime != null}"
+              th:text="${#temporals.format(post.spec.publishTime, 'dd. MM. yyyy')}"></span>
+          </li>
+        </ul>
+      </div>
+      <div class="pagination" th:if="${posts.hasPrevious() || posts.hasNext()}">
+        <a th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}"><b>Previous</b></a>
+        <a th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}"><b>Next</b></a>
+      </div>
+    </th:block>
+  </th:block>
+</html>

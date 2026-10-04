@@ -1,0 +1,13 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <th:block th:fragment="license-tag">
+    <div class="license-tag">
+      <i>Published under
+        <a
+          th:href="${theme.config.content.license_url ?: 'https://creativecommons.org/licenses/by-nc-nd/4.0/'}"
+          th:text="${theme.config.content.license_name ?: 'CC BY-NC-ND 4.0'}"
+        ></a>
+      </i>
+    </div>
+  </th:block>
+</html>

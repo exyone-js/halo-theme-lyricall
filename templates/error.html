@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="https://www.thymeleaf.org"
+  th:replace="~{layout :: html(head = null, content = ~{::content})}"
+>
+  <th:block th:with="pageTitle = 'Error 404'">
+    <th:block th:fragment="content">
+      <div class="error-message">
+        Sorry the site your are looking for does not exist
+      </div>
+    </th:block>
+  </th:block>
+</html>
