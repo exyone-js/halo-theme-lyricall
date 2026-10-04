@@ -1,13 +1,13 @@
 <!doctype html>
 <html
-  lang="en"
+  lang="zh-CN"
   xmlns:th="https://www.thymeleaf.org"
   th:fragment="html (head, content)"
 >
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#313131" />
+    <meta name="theme-color" content="#fefaf0" />
     <title th:text="${site.title} + ' | ' + ${pageTitle}"></title>
     <meta name="author" th:content="${site.title}" />
     <link
@@ -29,20 +29,13 @@
     <link rel="icon" type="image/x-icon" th:href="@{/assets/favicon.ico}" />
     <link rel="apple-touch-icon" th:href="@{/assets/apple-icon.png}" />
     <link rel="manifest" th:href="@{/assets/manifest.json}" />
-    <th:block th:if="${theme.config.style.color_scheme == 'light'}">
-      <style th:utext="':root{' +
-        '--body-color:' + ${theme.config.style.body_color} + ';' +
-        '--text-color:' + ${theme.config.style.text_color} + ';' +
-        '--post-frame-color:' + ${theme.config.style.post_frame_color} + ';' +
-        '}'"></style>
+    <th:block th:if="${theme.config.style.show_grid == false}">
+      <style>
+        body { background-image: none !important; }
+      </style>
     </th:block>
-    <th:block th:if="${theme.config.style.color_scheme == 'dark'}">
-      <style th:utext="':root{' +
-        '--body-color:' + ${theme.config.style.body_color_dark} + ';' +
-        '--text-color:' + ${theme.config.style.text_color_dark} + ';' +
-        '--post-frame-color:' + ${theme.config.style.post_frame_color_dark} + ';' +
-        '--link-color:#FFFFFF;--link-visited-color:#FFFFFF;--logo-color:#FFFFFF;' +
-        '}'"></style>
+    <th:block th:if="${not #strings.isEmpty(theme.config.style.accent_color)}">
+      <style th:utext="':root{--accent:' + ${theme.config.style.accent_color} + ';}'"></style>
     </th:block>
     <th:block th:if="${head != null}">
       <th:block th:replace="${head}" />
