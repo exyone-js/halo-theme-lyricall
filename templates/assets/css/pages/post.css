@@ -1,22 +1,40 @@
 /* ============================================================================
-   pages/post.css —— 诗词详情页：诗题区 / 诗句区 / 笺注区 / 落款区
+   pages/post.css —— 详情页：独立成章的一页笺
+   撤去卡片器型；诗题居中，题下压一道短朱砂齐线；
+   诗句正文居中排布（注释仍左对齐），首尾以导航线收束。
    ============================================================================ */
 
+/* 章页：素笺无框，悬停不浮 */
 .post--poem {
-  max-width: min(100%, 50rem);
-  padding-top: var(--space-5);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
+.post--poem::before { content: none; }
+.post--poem:hover { box-shadow: none; translate: none; }
 
-/* 详情页诗句更大一号 */
-.post--poem .poem .poem-line,
-.post--poem .poem .verse { font-size: var(--fs-poem-lg); letter-spacing: var(--ls-poem); }
-
-.post__header { text-align: center; margin-bottom: var(--space-5); }
+/* ——— 诗题区 ——— */
+.post__header {
+  text-align: center;
+  margin-bottom: var(--space-5);
+}
 .post__header h1 {
   font-family: var(--font-serif);
-  font-size: var(--fs-2xl);
+  font-size: clamp(1.8rem, 1.45rem + 1.6vw, 2.6rem);
+  font-weight: var(--fw-medium);
+  letter-spacing: .1em;
+  line-height: var(--lh-snug);
   color: var(--color-heading);
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+/* 题下短朱砂齐线 */
+.post__header::after {
+  content: "";
+  display: block;
+  width: 3.6em;
+  margin: var(--space-4) auto 0;
+  border-top: 2px solid var(--color-accent);
+  opacity: .55;
 }
 .post__meta {
   font-size: var(--fs-xs);
@@ -26,55 +44,58 @@
   justify-content: center;
   align-items: center;
   gap: var(--space-2);
+  margin-top: var(--space-3);
 }
-/* 书签小印悬于题下元信息行，与作者、日期同列 */
+/* 书签小印并入题下款识行 */
 .post__meta .bookmark-btn { margin-inline-start: var(--space-2); }
 
-/* 正文区：散文体缩进，标题不缩进 */
-.post__body { max-width: var(--measure); margin-inline: auto; }
-.post__body > p { text-indent: var(--indent-prose); }
-.post__body > p + p { margin-top: var(--gap-stack); }
-.post__body > h2 { margin-top: var(--space-6); font-size: var(--fs-xl); }
-.post__body > h3 { margin-top: var(--space-5); font-size: var(--fs-lg); }
-.post__body img { margin-inline: auto; }
-
-/* 页脚落款 */
-.post__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
-  margin-top: var(--space-section);
-  padding-top: var(--space-4);
-  border-top: var(--border-hair);
-  font-size: var(--fs-sm);
-  color: var(--color-subtitle);
-  flex-wrap: wrap;
+/* ——— 诗句区：居中排章 ——— */
+.post--poem .poem {
+  padding-block: var(--space-6);
+}
+.post--poem .poem__body { text-align: center; }
+.post--poem .poem .poem-line,
+.post--poem .poem .verse {
+  font-size: var(--fs-poem-lg);
+  letter-spacing: var(--ls-poem-lg);
 }
 
-/* 上一首 / 下一首：翻卷寻章，两栏对望 */
+/* ——— 分类标签：居中 ——— */
+.post__footer {
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  padding-top: 0;
+}
+.post__footer .post-taxonomy {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px dashed color-mix(in srgb, var(--color-border) 70%, transparent);
+}
+
+/* ——— 上一首 / 下一首：两栏对望 ——— */
 .post__nav {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
+  gap: var(--space-6);
   margin-top: var(--space-6);
-  padding-top: var(--space-4);
-  border-top: 1px dashed var(--color-border);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
 }
 .post__nav-item {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
   min-height: var(--tap-target);
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-md);
+  padding: var(--space-2) 0;
   text-decoration: none;
   transition: var(--transition-ink);
 }
-.post__nav-item:hover {
-  background: var(--color-accent-soft);
-  text-decoration: none;
-}
+.post__nav-item:hover { background: transparent; text-decoration: none; }
 .post__nav-prev { text-align: left; }
 .post__nav-next { text-align: right; }
 .post__nav-dir {
@@ -82,17 +103,22 @@
   font-size: var(--fs-xs);
   letter-spacing: var(--ls-nav);
   color: var(--color-text-muted);
+  transition: translate var(--duration-base) var(--ease-ink),
+              color var(--duration-fast) var(--ease-ink);
 }
-.post__nav-item:hover .post__nav-dir { color: var(--color-accent-text); }
+.post__nav-prev:hover .post__nav-dir { translate: -4px 0; color: var(--color-accent-text); }
+.post__nav-next:hover .post__nav-dir { translate: 4px 0;  color: var(--color-accent-text); }
 .post__nav-title {
   font-family: var(--font-serif);
   font-size: var(--fs-md);
+  letter-spacing: .04em;
   color: var(--color-heading);
   overflow-wrap: break-word;
+  transition: color var(--duration-fast) var(--ease-ink);
 }
 .post__nav-item:hover .post__nav-title { color: var(--color-accent-text); }
 
 @media screen and (max-width: 500px) {
-  .post__nav { grid-template-columns: 1fr; }
+  .post__nav { grid-template-columns: 1fr; gap: var(--space-2); }
   .post__nav-next { text-align: left; }
 }

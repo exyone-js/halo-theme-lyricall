@@ -1,119 +1,139 @@
 /* ============================================================================
-   pages/home.css —— 首页：小字标 + 略大主标题 + 一行引言 + 诗卡列表
-   明确不再使用超大 Hero 字：主标题 clamp(2rem, 5vw, 3.25rem)。
+   pages/home.css —— 首页：素笺散页式诗目
+   不用卡片盒子：每首诗是一张摊开的笺，笺与笺以细纹 + 朱砂方界分隔；
+   题名居中、宋体大字，悬停自中心晕开一道朱砂下划线；
+   摘录用直角引号框起，楷体居中、行距疏朗。
    ============================================================================ */
 
-.home-hero {
-  text-align: center;
-  padding-block: var(--space-fluid-lg) var(--space-6);
-}
-.home-hero__eyebrow {
-  font-family: var(--font-sans);
-  font-size: var(--fs-2xs);
-  letter-spacing: var(--ls-caps);
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-2);
-}
-.home-hero__title {
-  font-family: var(--font-serif);
-  font-size: var(--fs-3xl);
-  font-weight: var(--fw-medium);
-  line-height: var(--lh-snug);
-  letter-spacing: var(--ls-title);
-  color: var(--color-heading);
-}
-.home-hero__lead {
-  font-family: var(--font-poem);
-  font-size: var(--fs-sm);
-  letter-spacing: var(--ls-poem);
-  color: var(--color-text-muted);
-  margin-top: var(--space-3);
-}
-/* 标题下的一枚极淡朱砂印点，仅作点缀 */
-.home-hero__title::after {
-  content: "";
-  display: block;
-  width: 6px;
-  height: 6px;
-  margin: var(--space-3) auto 0;
-  border-radius: 50%;
-  background: var(--color-accent);
-  opacity: .55;
-}
-
-/* 诗卡列表 */
-.poem-list {
-  margin-inline: auto;
-  max-width: min(100%, 46rem);
-  padding: var(--space-4);
-}
-.poem-list h2 {
-  font-family: var(--font-serif);
-  font-size: var(--fs-lg);
-  color: var(--color-heading);
-  padding-block: var(--space-1) var(--space-2);
-  border-bottom: var(--border-hair);
-  margin-bottom: var(--space-3);
-}
-
-/* 首页卡片：更轻盈，取消书脊线改为顶部极细朱砂线 */
-.home-feed .card::before,
-.home-feed .post-short::before {
-  top: 0;
-  bottom: auto;
-  left: var(--space-5);
-  width: 2.5em;
-  height: 2px;
-}
-
-.home-feed > * + * { margin-top: var(--space-block); }
-
-/* ——— 诗卡内部：题下元信息行 ——— */
-.home-feed .post-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-}
-.home-feed .post-meta time {
-  font-family: var(--font-latin);
-  font-size: var(--fs-xs);
-  letter-spacing: var(--ls-normal);
-  color: var(--color-subtitle);
-}
-
-/* 诗句摘录：去底色重框，化为卡内一方素笺 */
-.home-feed .post-excerpt {
+/* ——— 诗笺基座：撤去卡片器型，只留白 ——— */
+.home-feed .post-short {
+  max-width: var(--measure-poem);
   background: transparent;
-  border-left: 2px solid var(--color-accent-border);
-  border-radius: 0;
+  border: 0;
   box-shadow: none;
-  padding: var(--space-1) 0 var(--space-1) var(--space-4);
-  margin-block: var(--space-3);
+  padding: var(--space-fluid-lg) var(--space-4);
+  text-align: center;
+}
+.home-feed .post-short:hover { box-shadow: none; }
+/* 撤掉卡片左缘书脊 */
+.home-feed .post-short::before { content: none; }
+
+/* 笺间分界：通栏细线 + 居中朱线方界 */
+.home-feed .post-short + .post-short {
+  position: relative;
+}
+.home-feed .post-short + .post-short::before {
+  content: "";
+  position: absolute;
+  top: calc(-.5 * var(--space-fluid-lg));
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-border);
+}
+.home-feed .post-short + .post-short::after {
+  content: "";
+  position: absolute;
+  top: calc(-.5 * var(--space-fluid-lg));
+  left: 50%;
+  translate: -50% -50%;
+  width: 8px;
+  height: 8px;
+  rotate: 45deg;
+  background: var(--grid-bg-color, var(--color-bg));
+  border: 1px solid var(--color-accent-border);
+}
+
+/* ——— 题名：居中宋体，悬停朱砂中晕 ——— */
+.home-feed .post-title {
+  text-align: center;
+}
+.home-feed .post-title a {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-medium);
+  letter-spacing: .06em;
+  color: var(--color-heading);
+  text-decoration: none;
+  padding-bottom: .18em;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: center 100%;
+  background-size: 0% 2px;
+  transition:
+    color var(--duration-base) var(--ease-ink),
+    background-size var(--duration-slow) var(--ease-ink);
+}
+.home-feed .post-title a:hover {
+  color: var(--color-accent-text);
+  background-size: 52% 2px;
+}
+
+/* ——— 题下款识：作者 · 日期 ——— */
+.home-feed .post-meta {
+  justify-content: center;
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+}
+.home-feed .post-meta a { color: var(--color-text-muted); }
+.home-feed .post-meta a:hover { color: var(--color-accent-text); }
+.home-feed .post-meta .sep { color: var(--color-accent-border); }
+
+/* ——— 摘录：直角引号框，楷体居中 ——— */
+.home-feed .post-excerpt {
+  position: relative;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  margin-block: var(--space-5);
+  padding: var(--space-2) var(--space-9);
+  text-align: center;
   font-family: var(--font-poem);
   font-size: var(--fs-poem);
   line-height: var(--lh-poem);
   letter-spacing: var(--ls-poem);
   color: var(--color-text);
-  text-indent: 0;
 }
+.home-feed .post-excerpt::before,
+.home-feed .post-excerpt::after {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-size: 1.6em;
+  color: var(--color-accent-border);
+  opacity: .85;
+}
+.home-feed .post-excerpt::before { content: "「"; left: var(--space-4); top: -.35em; }
+.home-feed .post-excerpt::after  { content: "」"; right: var(--space-4); bottom: -.45em; }
+
+/* 阅读全文 */
 .home-feed .excerpt-link {
   display: inline-block;
-  margin-bottom: var(--space-3);
-  font-size: var(--fs-sm);
+  margin-top: var(--space-1);
+  font-size: var(--fs-xs);
+  letter-spacing: .14em;
+  color: var(--color-text-muted);
 }
+.home-feed .excerpt-link i { font-style: normal; }
+.home-feed .excerpt-link:hover { color: var(--color-accent-text); text-decoration: none; }
 
-/* 分类标签成行 */
+/* ——— 分类标签：居中小印 ——— */
 .home-feed .post-taxonomy {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-2);
-  padding-top: var(--space-3);
-  border-top: 1px dashed var(--color-border);
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px dashed color-mix(in srgb, var(--color-border) 70%, transparent);
+}
+.home-feed .post-taxonomy .tag {
+  font-size: var(--fs-2xs);
+  padding: .18em .9em;
 }
 
-/* 空态：素笺一句，不与正文争 */
+/* ——— 空态 ——— */
 .home-empty {
   text-align: center;
   font-family: var(--font-poem);

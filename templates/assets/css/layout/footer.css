@@ -1,29 +1,47 @@
 /* ============================================================================
-   layout/footer.css —— 页脚：细线分隔 + 小字 + 版权印章位
+   layout/footer.css —— 页脚：文武线收边 + 居中落款
+   与导航上下呼应，细线居上、粗线居下，仿书口装订。
    ============================================================================ */
 
 footer,
 .site-footer {
-  text-align: center;
-  margin-inline: auto;
-  width: min(100% - var(--space-fluid-md) * 2, 68em);
+  position: relative;
+  width: min(100% - var(--gutter) * 2, 68em);
+  margin: var(--space-section) auto var(--space-6);
+  padding-top: 0;
   font-size: var(--fs-2xs);
-  line-height: var(--lh-snug);
+  line-height: var(--lh-relaxed);
   color: var(--color-text-muted);
-  margin-top: var(--space-section);
-  padding-top: var(--space-3);
-  padding-bottom: var(--space-3);
-  border-top: var(--border-hair);
-  letter-spacing: var(--ls-normal);
+}
+
+/* 文武线（细上粗下），与导航处的双线呼应 */
+footer::before,
+.site-footer::before {
+  content: "";
+  display: block;
+  margin-bottom: var(--space-4);
+  height: 6px;
+  border-top: 1px solid color-mix(in srgb, var(--color-heading) 60%, transparent);
+  border-bottom: 2.5px solid color-mix(in srgb, var(--color-heading) 82%, transparent);
 }
 
 footer a,
-.site-footer a { color: var(--color-text-muted); }
+.site-footer a {
+  color: var(--color-text-muted);
+  text-decoration-color: color-mix(in srgb, var(--color-text-muted) 45%, transparent);
+}
 footer a:hover,
-.site-footer a:hover { color: var(--color-accent-text); }
+.site-footer a:hover {
+  color: var(--color-accent-text);
+  text-decoration-color: var(--color-accent-border);
+}
 
+/* 许可行：居中落款 */
 .license-tag {
-  text-align: right;
-  font-size: var(--fs-2xs);
+  text-align: center;
+  margin-top: var(--space-2);
+}
+.license-tag i {
+  font-style: normal;
   color: var(--color-text-muted);
 }

@@ -1,5 +1,5 @@
 /* ============================================================================
-   pages/archive.css —— 归档 / 关于：竖轴时间线，朱砂点为节
+   pages/archive.css —— 归档：年号朱标 + 疏朗年表
    ============================================================================ */
 
 .archive {
@@ -7,58 +7,58 @@
   margin-inline: auto;
 }
 
+/* 年份即年号：宋体大字，前置一枚朱文方界 */
 .archive__year {
-  font-family: var(--font-latin);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-serif);
   font-size: var(--fs-2xl);
+  font-weight: var(--fw-medium);
+  letter-spacing: .08em;
   color: var(--color-heading);
-  letter-spacing: var(--ls-normal);
-  margin-top: var(--space-section);
-  padding-bottom: var(--space-2);
-  border-bottom: var(--border-hair);
+  margin: var(--space-6) 0 var(--space-4);
+}
+.archive__year::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  rotate: 45deg;
+  background: var(--color-accent-soft);
+  border: 1.5px solid var(--color-accent);
 }
 
-.archive__list { list-style: none; margin: 0; padding: 0; }
-
+/* 年表条目：悬停浮色、题名微移 */
 .archive__item {
-  position: relative;
   display: flex;
   align-items: baseline;
   gap: var(--space-4);
-  padding: var(--space-2) 0 var(--space-2) var(--space-6);
-  border-bottom: 1px dashed var(--color-border);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background-color var(--duration-fast) var(--ease-ink);
 }
-.archive__item::before {
-  content: "";
-  position: absolute;
-  left: var(--space-1);
-  top: 1.15em;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  opacity: .75;
-}
-.archive__item:hover::before { opacity: 1; }
-
-.archive__date {
-  font-family: var(--font-latin);
-  font-size: var(--fs-xs);
-  color: var(--color-subtitle);
-  min-width: 5.5em;
-}
-.archive__title {
-  font-family: var(--font-serif);
-  font-size: var(--fs-md);
-  color: var(--color-text);
+.archive__item:hover {
+  background: var(--color-accent-soft);
   text-decoration: none;
 }
-.archive__title:hover { color: var(--color-accent-text); }
-
-/* 关于页：散文体，首行缩进 */
-.page-about p { text-indent: var(--indent-prose); }
-.page-about p + p { margin-top: var(--gap-stack); }
-
-@media screen and (max-width: 500px) {
-  .archive__item { flex-direction: column; gap: 0; padding-left: var(--space-5); }
-  .archive__item::before { top: .9em; }
+.archive__item time {
+  font-family: var(--font-latin);
+  font-size: var(--fs-2xs);
+  letter-spacing: .06em;
+  color: var(--color-text-muted);
+  flex: none;
+  min-width: 5.5em;
+}
+.archive__item .archive__title {
+  font-size: var(--fs-base);
+  color: var(--color-heading);
+  overflow-wrap: break-word;
+  transition: translate var(--duration-base) var(--ease-ink),
+              color var(--duration-fast) var(--ease-ink);
+}
+.archive__item:hover .archive__title {
+  translate: 4px 0;
+  color: var(--color-accent-text);
 }
